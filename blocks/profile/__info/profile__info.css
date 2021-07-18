@@ -1,0 +1,9 @@
+.profile__info {
+  display: grid;
+  align-items: baseline;
+  grid-template-columns: max-content min-content;
+  gap: 0.5rem 1rem;
+  grid-template-areas:
+    "name btn"
+    "about about";
+}

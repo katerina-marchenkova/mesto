@@ -17,15 +17,26 @@
       <a class="header__logo header__logo_theme_dark" href="." title="Mesto Russia" aria-label="Mesto Russia"></a>
     </header>
     <main class="content">
+      <section class="profile">
+        <img src="./images/content/avatar_cousteau.jpg" class="profile__avatar" alt="Жак-Ив Кусто" />
+        <div class="profile__info">
+
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button type="button" class="profile__btn-edit"><span class="icon icon_type_plus"></span></button>
+          <p class="profile__description">
+            Исследователь океана
+          </p>
+        </div>
+        <button type="button" class="profile__btn-add"><span class="icon icon_type_plus"></span></button>
+      </section>
       <section class="places">
         <ul class="places__list">
           <li>
             <label class="checkcard">
               <input type="checkbox" class="checkcard__checkbox">
               <figure class="checkcard__body">
-                <img class="checkcard__image"
-                  src="./images/content/element_karachaevsk.png"
-                  class="checkcard__image" alt="Карачаевск">
+                <img class="checkcard__image" src="./images/content/element_karachaevsk.png" class="checkcard__image"
+                  alt="Карачаевск">
                 <figcaption class="checkcard__caption">
                   <h2 class="checkcard__title">Карачаевск</h2>
                   <span class="checkcard__icon icon icon_type_like"></span>

@@ -1,0 +1,9 @@
+.profile__description {
+  margin: 0;
+  padding: 0;
+  grid-area: "about";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+}

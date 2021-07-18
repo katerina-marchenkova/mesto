@@ -1,0 +1,8 @@
+.profile {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: min-content 1fr min-content;
+  align-items: center;
+}

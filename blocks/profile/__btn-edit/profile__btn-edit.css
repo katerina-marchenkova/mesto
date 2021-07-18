@@ -1,0 +1,10 @@
+.profile__btn-edit {
+  margin: 0;
+  padding: 0;
+  grid-area: btn;
+  cursor: pointer;
+  border: 1px solid #fff;
+  background-color: transparent;
+  width: 1.5rem;
+  height: 1.5rem;
+}
