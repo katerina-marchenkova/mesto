@@ -1,8 +1,23 @@
 .profile {
   margin: 2.5rem 0 0;
   padding: 0;
+  max-width: 100%;
   display: grid;
   gap: 2rem;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: min-content 1fr minmax(min-content, 150px);
   align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .profile {
+    margin: 2.6rem 1.2rem 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile {
+    grid-template-columns: 1fr;
+    justify-content: space-around;
+    justify-items: center;
+  }
 }

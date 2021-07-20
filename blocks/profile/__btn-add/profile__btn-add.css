@@ -1,0 +1,11 @@
+.profile__btn-add {
+  border: 2px solid #fff;
+  background-color: transparent;
+  background: url("../../../images/icons/plus.svg") no-repeat center;
+  border-radius: 2px;
+  width: 100%;
+  min-height: 50px;
+  cursor: pointer;
+  font-family: inherit;
+  justify-self: end;
+}

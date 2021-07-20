@@ -3,6 +3,12 @@
   padding: 0;
 }
 
+@media screen and (max-width: 1024px) {
+  .profile {
+    margin: 50px 1.2rem 0;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .places {
     margin: 36px 0 0;

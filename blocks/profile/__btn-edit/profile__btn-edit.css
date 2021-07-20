@@ -5,6 +5,7 @@
   cursor: pointer;
   border: 1px solid #fff;
   background-color: transparent;
+  background: url("../../../images/icons/pencil.svg") no-repeat center;
   width: 1.5rem;
   height: 1.5rem;
 }

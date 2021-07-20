@@ -3,8 +3,6 @@
 /* page and shared styles */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__inner/page__inner.css);
-@import url(../blocks/icon/icon.css);
-@import url(../blocks/icon/_type/icon_type_like.css);
 @import url(../blocks/checkcard/checkcard.css);
 @import url(../blocks/checkcard/__checkbox/checkcard__checkbox.css);
 @import url(../blocks/checkcard/__body/checkcard__body.css);
@@ -24,7 +22,7 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__btn-edit/profile__btn-edit.css);
 @import url(../blocks/profile/__description/profile__description.css);
-@import url(../blocks/profile/__btn-add/profile_btn-add.css);
+@import url(../blocks/profile/__btn-add/profile__btn-add.css);
 @import url(../blocks/places/places.css);
 @import url(../blocks/places/places__list/places__list.css);
 /* footer */
