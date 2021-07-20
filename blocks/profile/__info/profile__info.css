@@ -18,4 +18,5 @@
 @media screen and (max-width: 425px) {
   .profile__info {
     grid-column-start: span 1;
-
+  }
+}
