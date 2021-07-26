@@ -9,11 +9,8 @@
 }
 
 @media screen and (max-width: 425px) {
-  .popup__btn_close {
-    width: 100%;
-    max-width: 20px;
-    min-height: 20px;
-    top: -2.25rem;
-    right: 0;
+  .popup__title {
+    font-size: 18px;
+    line-height: 22px;
   }
 }
