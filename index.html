@@ -20,12 +20,22 @@
       <section class="profile">
         <img src="./images/content/avatar_cousteau.jpg" class="profile__avatar" alt="Жак-Ив Кусто" />
         <div class="profile__info">
-
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button type="button" class="profile__btn-edit"></button>
           <p class="profile__description">
             Исследователь океана
           </p>
+        </div>
+        <div class="popup popup_edit-profile popup_opened">
+          <div class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <button class="popup__btn_close"></button>
+            <form class="form form_edit-profile">
+              <input class="form__item">
+              <input class="form__item">
+              <button type="submit" class="form__button">Сохранить</button>
+            </form>
+          </div>
         </div>
         <button type="button" class="profile__btn-add"></button>
       </section>

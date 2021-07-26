@@ -3,6 +3,11 @@
 /* page and shared styles */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__inner/page__inner.css);
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__btn_close/popup__btn_close.css);
+@import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/checkcard/checkcard.css);
 @import url(../blocks/checkcard/__checkbox/checkcard__checkbox.css);
 @import url(../blocks/checkcard/__body/checkcard__body.css);
