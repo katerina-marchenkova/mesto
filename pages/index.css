@@ -3,7 +3,6 @@
 /* page and shared styles */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__inner/page__inner.css);
-@import url(../blocks/form/form.css);
 @import url(../blocks/form/_edit-profile/form_edit-profile.css);
 @import url(../blocks/form/__item/form__item.css);
 @import url(../blocks/form/__button/form__button.css);

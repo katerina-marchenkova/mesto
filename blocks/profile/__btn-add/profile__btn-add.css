@@ -8,4 +8,19 @@
   cursor: pointer;
   font-family: inherit;
   justify-self: end;
+  -webkit-transition: border-color 0.3s ease-out 0.1s;
+  -moz-transition: border-color 0.3s ease-out 0.1s;
+  -ms-transition: border-color 0.3s ease-out 0.1s;
+  -o-transition: border-color 0.3s ease-out 0.1s;
+  transition: border-color 0.3s ease-out 0.1s;
+  -webkit-transition: background-color 0.3s ease-out 0.1s;
+  -moz-transition: background-color 0.3s ease-out 0.1s;
+  -ms-transition: background-color 0.3s ease-out 0.1s;
+  -o-transition: background-color 0.3s ease-out 0.1s;
+  transition: background-color 0.3s ease-out 0.1s;
+}
+
+.profile__btn-add:hover {
+  border-color: rgba(256, 256, 256, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }

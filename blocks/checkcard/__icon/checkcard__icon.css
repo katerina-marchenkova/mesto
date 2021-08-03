@@ -4,4 +4,13 @@
   width: 22px;
   min-height: 19px;
   background: url("../../../images/icons/like.svg") no-repeat center;
+  -webkit-transition: background-image 0.3s ease-out 0.1s;
+  -moz-transition: background-image 0.3s ease-out 0.1s;
+  -ms-transition: background-image 0.3s ease-out 0.1s;
+  -o-transition: background-image 0.3s ease-out 0.1s;
+  transition: background-image 0.3s ease-out 0.1s;
+}
+
+.checkcard__icon:hover {
+  background-image: url("../../../images/icons/like_state_hover.svg");
 }
