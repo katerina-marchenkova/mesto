@@ -13,4 +13,13 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
+  -webkit-transition: background-color 0.3s ease-out 0.1s;
+  -moz-transition: background-color 0.3s ease-out 0.1s;
+  -ms-transition: background-color 0.3s ease-out 0.1s;
+  -o-transition: background-color 0.3s ease-out 0.1s;
+  transition: background-color 0.3s ease-out 0.1s;
+}
+
+.form__button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }

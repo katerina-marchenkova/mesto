@@ -10,7 +10,17 @@
   min-height: 2rem;
   cursor: pointer;
   font-family: inherit;
+  -webkit-transition: opacity 0.3s ease-out 0.1s;
+  -moz-transition: opacity 0.3s ease-out 0.1s;
+  -ms-transition: opacity 0.3s ease-out 0.1s;
+  -o-transition: opacity 0.3s ease-out 0.1s;
+  transition: opacity 0.3s ease-out 0.1s;
 }
+
+.popup__btn_close:hover {
+  opacity: 0.6;
+}
+
 
 @media screen and (max-width: 425px) {
   .popup__btn_close {

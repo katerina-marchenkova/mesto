@@ -12,7 +12,6 @@ function Person(name, job) {
 function PersonDataService() {
   // todo: observable
   let _current = new Person("Жак-Ив Кусто", "Исследователь oкeaнa");
-
   this.getCurrent = function() {
     return _current;
   }
@@ -27,7 +26,7 @@ function PersonDataService() {
   this.onPersonUpdated = () => {};
 }
 
-/* Index Page Component*/
+/*todo: Index Page Component*/
 let personDataService = new PersonDataService();
 personDataService.onPersonUpdated = () =>
 {
@@ -53,5 +52,3 @@ let profile = new ProfileComponent({
 }});
 
 profile.setPersonData(personDataService.getCurrent());
-
-
