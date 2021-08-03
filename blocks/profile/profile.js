@@ -7,12 +7,9 @@ export function ProfileComponent (options) {
 
   let self = this; // old style aka in jquery
 
-  this.setTitle = (personName) => {
-    _title.textContent = personName;
-  }
-
-  this.setDescription = (personEntitlement) => {
-    _description.textContent = personEntitlement;
+  this.setPersonData = (person) => {
+    _title.textContent = person.Name;
+    _description.textContent = person.Job;
   }
 
   this.onEdit =
