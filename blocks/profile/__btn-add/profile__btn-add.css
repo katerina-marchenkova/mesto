@@ -13,11 +13,6 @@
   -ms-transition: border-color 0.3s ease-out 0.1s;
   -o-transition: border-color 0.3s ease-out 0.1s;
   transition: border-color 0.3s ease-out 0.1s;
-  -webkit-transition: background-color 0.3s ease-out 0.1s;
-  -moz-transition: background-color 0.3s ease-out 0.1s;
-  -ms-transition: background-color 0.3s ease-out 0.1s;
-  -o-transition: background-color 0.3s ease-out 0.1s;
-  transition: background-color 0.3s ease-out 0.1s;
 }
 
 .profile__btn-add:hover {
