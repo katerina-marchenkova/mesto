@@ -17,5 +17,14 @@
 
 .profile__btn-edit:hover {
   border-color: rgba(256, 256, 256, 0.6);
+}
 
+@media screen and (max-width: 425px) {
+  .profile__btn-edit {
+    width: 1.125rem;
+    height: 1.125rem;
+    position: absolute;
+    top: 8px;
+    right: -28px;
+  }
 }

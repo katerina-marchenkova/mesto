@@ -24,3 +24,10 @@
   border-color: rgba(256, 256, 256, 0.6);
   background-color: rgba(0, 0, 0, 0.6);
 }
+
+@media screen and (max-width: 425px) {
+  .profile__btn-add {
+    margin-top: 0.5rem;
+    background-size: 16px;
+  }
+}

@@ -16,7 +16,9 @@
 
 @media screen and (max-width: 425px) {
   .profile {
+    margin: 2.6rem 0 0;
     grid-template-columns: 1fr;
+    gap: 26px;
     justify-content: space-around;
     justify-items: center;
   }
