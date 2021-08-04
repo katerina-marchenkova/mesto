@@ -1,8 +1,12 @@
-.card__icon {
+.card__btn {
   margin: 0 0 0 2rem;
   padding: 0;
+  border: 0;
   width: 22px;
   min-height: 19px;
+  font-family: inherit;
+  font-size: 19px;
+  cursor: pointer;
   background: url("../../../images/icons/like.svg") no-repeat center;
   -webkit-transition: background-image 0.3s ease-out 0.1s;
   -moz-transition: background-image 0.3s ease-out 0.1s;
@@ -11,6 +15,6 @@
   transition: background-image 0.3s ease-out 0.1s;
 }
 
-.card__icon:hover {
+.card__btn:hover {
   background-image: url("../../../images/icons/like_state_hover.svg");
 }
