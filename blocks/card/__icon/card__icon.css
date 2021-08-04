@@ -1,4 +1,4 @@
-.checkcard__icon {
+.card__icon {
   margin: 0 0 0 2rem;
   padding: 0;
   width: 22px;
@@ -11,6 +11,6 @@
   transition: background-image 0.3s ease-out 0.1s;
 }
 
-.checkcard__icon:hover {
+.card__icon:hover {
   background-image: url("../../../images/icons/like_state_hover.svg");
 }

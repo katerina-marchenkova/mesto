@@ -1,5 +1,6 @@
-.checkcard {
+.card {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  display: flex;
 }
