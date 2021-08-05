@@ -12,3 +12,7 @@
   font-size: 14px;
   line-height: 17px;
 }
+
+.form__item:focus{
+  outline: none;
+}
