@@ -1,9 +1,8 @@
 .profile__info {
-  max-width: 100%;
   display: grid;
   position: relative;
   align-items: center;
-  grid-template-columns: minmax(min-content, max-content) min-content;
+  grid-template-columns: minmax(auto, min-content) 1fr;
   gap: 0.5rem 1rem;
   grid-template-areas:
     "name btn"
@@ -18,9 +17,6 @@
 
 @media screen and (max-width: 425px) {
   .profile__info {
-    gap: 0.5rem 0;
-    grid-template-areas:
-    "name"
-    "about";
+    gap: 0.5rem;
   }
 }
