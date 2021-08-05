@@ -13,7 +13,6 @@
 @import url(../blocks/popup/__btn-close/popup__btn-close.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/card/card.css);
-@import url(../blocks/card/__body/card__body.css);
 @import url(../blocks/card/__image/card__image.css);
 @import url(../blocks/card/__caption/card__caption.css);
 @import url(../blocks/card/__title/card__title.css);
