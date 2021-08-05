@@ -1,132 +1,63 @@
-/* constant component selectors */
-const popupSelector = ".popup";
-const personInfoSelector = ".profile";
-const personFormSelector = ".form";
-
-/*todo: I need move the data to a separate class file?? how to support BEM*/
-class Person {
-  constructor(name, job) {
-    this.Name = name;
-    this.Job = job;
-  }
+/* See the proper code (attempt to separate somehow data, services and view components) within the separate brach feature/js-components
+This one is my next attempt to guess how to pass the task.
+*/
+/* defined constant selectors */
+const selectors = {
+  popup: ".popup",
+  popupBtnClose: ".popup__btn-close",
+  profile: ".profile",
+  profileBtnEdit: ".profile__btn-edit",
+  profileName: ".profile__title",
+  profileJob: ".profile__description",
+  profileForm: ".form",
+  profileNameInput: ".form__item_el_name",
+  profileJobInput: ".form__item_el_job"
 }
 
-/*todo: I need move the service class to a separate file ?? how to support BEM*/
-class PersonDataService {
-  constructor() {
-    // todo: observable
-    this._current = new Person("Жак-Ив Кусто", "Исследователь oкeaнa");
-  }
-
-  getCurrent() {
-    return this._current;
-  }
-
-  updateCurrent(name, job) {
-    this._current.Name = name;
-    this._current.Job = job;
-    this.onPersonUpdated();
-  }
-
-  // todo: event emitter
-  onPersonUpdated = () => { };
+/* defined constant styles */
+const cssClasses = {
+  popupOpened: "popup_opened"
 }
 
-/* popup component initial code */
-class PopupComponent {
-  constructor(popupSelector) {
-    this._popup = document.querySelector(popupSelector);
-    this._btnClose = this._popup.querySelector(".popup__btn-close");
-  }
+/* internal component variables made global due to:
+Все DOM элементы нужно один раз найти при помощи метода document.querySelector и записать в переменные в начале файла, а затем использовать эти переменные в тех функциях, где они нужны.
+*/
+const popupElm = document.querySelector(selectors.popup);
+const popupBtnClose = popupElm.querySelector(selectors.popupBtnClose);
+const profileElm = document.querySelector(selectors.profile);
+const profileBtnEdit = profileElm.querySelector(selectors.profileBtnEdit);
+const profileNameElm = profileElm.querySelector(selectors.profileName);
+const profileJobElm = profileElm.querySelector(selectors.profileJob);
+const profileForm = document.querySelector(selectors.profileForm);
+const profileNameInput = document.querySelector(selectors.profileNameInput);
+const profileJobInput = document.querySelector(selectors.profileJobInput);
 
-  open() {
-    this._popup.classList.add("popup_opened");
-  }
-
-  close() {
-    this._popup.classList.remove("popup_opened");
-  }
-
-  init() {
-    let self = this;
-    this._btnClose.addEventListener("click", () => { self.close() });
-  }
+/* The mixture of popup and profile component logic (no incapsulation) is only per request:
+функция открытия попап (в класс должен добавиться модификатор).
+В ней же текстовые значения профайла записываются в значения инпутов */
+function openPopup() {
+  popupElm.classList.add(cssClasses.popupOpened);
+  // todo: register event listener for close event and escape here
+  // bad code - has nothing to do with popup
+  profileNameInput.value = profileNameElm.textContent.trim(); // or use the innerText
+  profileJobInput.value = profileJobElm.textContent.trim();
 }
 
-class ProfileComponent {
-  // todo: consider injecting PersonDataService and move selectors to init
-  constructor(selector) {
-    this._profile = document.querySelector(selector);
-    this._btnEdit = this._profile.querySelector(".profile__btn-edit");
-    this._title = this._profile.querySelector(".profile__title");
-    this._description = this._profile.querySelector(".profile__description");
-  }
-
-  setPersonData(person) {
-    this._title.textContent = person.Name;
-    this._description.textContent = person.Job;
-  }
-
-  init(options) {
-    if (typeof options?.editCallback === "function") {
-      this._btnEdit.addEventListener("click", options.editCallback);
-    }
-  }
+function closePopup() {
+  popupElm.classList.remove(cssClasses.popupOpened);
+  // todo: unsubscribe document from event listener for close event and escape here
 }
 
-class PersonFormComponent {
-  // todo: consider injecting PersonDataService and move selectors to init
-  constructor(selector) {
-    this._formElement = document.querySelector(".form");
-    this._nameInput = this._formElement.querySelector(".form__item_el_name");
-    this._jobInput = this._formElement.querySelector(".form__item_el_job");
-  }
+popupBtnClose.addEventListener("click", closePopup);
 
-  setPersonData(person) {
-    this._nameInput.value = person.Name;
-    this._jobInput.value = person.Job;
-  }
-
-  init(options) {
-    // Прикрепляем обработчик к форме:
-    // он будет следить за событием “submit” - «отправка»
-    let self = this;
-    this._formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      if (typeof options?.submitCallback === "function") {
-          options.submitCallback({ Name: self._nameInput.value, Job: self._jobInput.value });
-      }
-    });
-  }
+function updateProfile(name, job) {
+  profileNameElm.textContent = name;
+  profileJobElm.textContent = job;
 }
 
-/*todo: Index Page Component*/
-let personDataService = new PersonDataService();
-personDataService.onPersonUpdated = () => {
-  let person = personDataService.getCurrent();
-  profile.setPersonData(person);
-  form.setPersonData(person);
-}
-
-let popup = new PopupComponent(popupSelector);
-popup.init();
-// todo: personaldataservice inject to ctor of form and profile components
-let form = new PersonFormComponent(personFormSelector);
-form.init({
-  submitCallback:
-    (person) => {
-      personDataService.updateCurrent(person.Name, person.Job);
-      popup.close();
-    }
+profileBtnEdit.addEventListener("click", openPopup);
+profileForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  updateProfile(profileNameInput.value.trim(), profileJobInput.value.trim()); // form value? this.value.Name
+  closePopup();
 });
-
-let profile = new ProfileComponent(personInfoSelector)
-profile.init({
-  editCallback: () => {
-    popup.open();
-    form.setPersonData(personDataService.getCurrent());
-  }
-});
-
-// load current person data to display in view
-profile.setPersonData(personDataService.getCurrent());
