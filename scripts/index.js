@@ -48,7 +48,8 @@ class PopupComponent {
   }
 
   init() {
-    this._btnClose.addEventListener("click", this.close);
+    let self = this;
+    this._btnClose.addEventListener("click", () => { self.close() });
   }
 }
 
