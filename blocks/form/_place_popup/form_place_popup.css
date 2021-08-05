@@ -1,0 +1,9 @@
+.form_place_popup {
+  margin: 18px 0 0;
+}
+
+@media screen and (max-width: 425px) {
+  .form_place_popup {
+    margin: 2.7rem 0 0;
+  }
+}

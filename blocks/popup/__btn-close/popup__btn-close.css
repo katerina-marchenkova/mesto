@@ -21,6 +21,14 @@
   opacity: 0.6;
 }
 
+@media screen and (max-width: 768px) {
+  .popup__btn-close {
+    background-size: contain;
+    top: -3rem;
+    right: 0;
+  }
+}
+
 
 @media screen and (max-width: 425px) {
   .popup__btn-close {
