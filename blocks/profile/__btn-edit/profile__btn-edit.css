@@ -8,15 +8,15 @@
   background: url("../../../images/icons/pencil.svg") no-repeat center;
   width: 1.5rem;
   height: 1.5rem;
-  -webkit-transition: border-color 0.3s ease-out 0.1s;
-  -moz-transition: border-color 0.3s ease-out 0.1s;
-  -ms-transition: border-color 0.3s ease-out 0.1s;
-  -o-transition: border-color 0.3s ease-out 0.1s;
-  transition: border-color 0.3s ease-out 0.1s;
+  -webkit-transition: opacity 0.3s ease-out 0.1s;
+  -moz-transition: opacity 0.3s ease-out 0.1s;
+  -ms-transition: opacity 0.3s ease-out 0.1s;
+  -o-transition: opacity 0.3s ease-out 0.1s;
+  transition: opacity 0.3s ease-out 0.1s;
 }
 
 .profile__btn-edit:hover {
-  border-color: rgba(256, 256, 256, 0.6);
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 425px) {
