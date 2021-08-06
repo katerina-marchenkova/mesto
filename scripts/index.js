@@ -37,9 +37,11 @@ function updateProfile(name, job) {
   profileJobElm.textContent = job;
 }
 
-profileBtnEdit.addEventListener("click", openPopup);
-profileForm.addEventListener("submit", function(evt) {
+function onProfileSubmitted(evt) {
   evt.preventDefault();
   updateProfile(profileNameInput.value, profileJobInput.value);
   closePopup();
-});
+}
+
+profileBtnEdit.addEventListener("click", openPopup);
+profileForm.addEventListener("submit", onProfileSubmitted);
