@@ -53,11 +53,15 @@ const buildPlaceCard = function(titleValue, imageLinkValue) {
     evt.target.classList.toggle('card__like_active');
   });
 
+  cardElement.querySelector('.card__btn-delete_place_card').addEventListener('click', function (evt) {
+    const cardToRemove = evt.target.closest('.card')
+    cardToRemove.remove();
+  });
+
   return cardElement;
 }
 
 const addPlaceCard = function(item, index) {
-  debugger;
   const placeElement = buildPlaceCard(item.name, item.link);
   placesContainer.append(placeElement);
 };
