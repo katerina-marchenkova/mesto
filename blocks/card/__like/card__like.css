@@ -1,4 +1,4 @@
-.card__btn {
+.card__like {
   margin: 0 0 0 2rem;
   padding: 0;
   border: 0;
@@ -15,6 +15,6 @@
   transition: background-image 0.3s ease-out 0.1s;
 }
 
-.card__btn:hover {
+.card__like:hover {
   background-image: url("../../../images/icons/like_state_hover.svg");
 }

@@ -49,6 +49,9 @@ const buildPlaceCard = function(titleValue, imageLinkValue) {
   imgElement.setAttribute('src', imageLinkValue);
   imgElement.setAttribute('alt', titleValue);
   cardElement.querySelector('.card__title').textContent = titleValue;
+  cardElement.querySelector('.card__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__like_active');
+  });
 
   return cardElement;
 }
