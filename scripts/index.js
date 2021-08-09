@@ -61,12 +61,10 @@ const buildPlaceCard = function(titleValue, imageLinkValue) {
   return cardElement;
 }
 
-const addPlaceCard = function(item, index) {
+initialCards.map((item) => {
   const placeElement = buildPlaceCard(item.name, item.link);
   placesContainer.append(placeElement);
-};
-
-initialCards.map(addPlaceCard);
+});
 
 /* The mixture of popup and profile component logic (no incapsulation) is only per request:
 функция открытия попап (в класс должен добавиться модификатор).
