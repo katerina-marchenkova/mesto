@@ -52,19 +52,19 @@ const initialCards = [
 
 /* popup functionality */
 const showPopup = function(popupElm) {
-  popupElm.classList.remove("popup_hidden");
-  popupElm.classList.remove("fade-out");
-  popupElm.classList.add("fade-in");
+  popupElm.classList.remove('popup_hidden');
+  popupElm.classList.remove('fade-out');
+  popupElm.classList.add('fade-in');
 }
 
 const closePopup = function(evt) {
   const parentPopupElm = evt.target.closest('.popup');
-  parentPopupElm.classList.remove("fade-in");
-  parentPopupElm.classList.add("fade-out");
+  parentPopupElm.classList.remove('fade-in');
+  parentPopupElm.classList.add('fade-out');
 }
 
 popupAllBtnClose.forEach((btn) => {
-  btn.addEventListener("click", closePopup);
+  btn.addEventListener('click', closePopup);
 });
 
 /* load initial cards */
@@ -140,8 +140,8 @@ function onNewPlaceSubmitted(evt) {
   closePopup(evt);
 }
 
-profileBtnEdit.addEventListener("click", openEditProfilePopup);
+profileBtnEdit.addEventListener('click', openEditProfilePopup);
 profileBtnAddPlace.addEventListener('click', openNewPlacePopup);
 
-profileForm.addEventListener("submit", onProfileSubmitted);
-newPlaceForm.addEventListener("submit", onNewPlaceSubmitted);
+profileForm.addEventListener('submit', onProfileSubmitted);
+newPlaceForm.addEventListener('submit', onNewPlaceSubmitted);
