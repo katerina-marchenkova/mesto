@@ -4,18 +4,21 @@ This one is my next attempt to guess how to pass the task.
 /* internal component variables made global due to:
 Все DOM элементы нужно один раз найти при помощи метода document.querySelector и записать в переменные в начале файла, а затем использовать эти переменные в тех функциях, где они нужны.
 */
-const popupElm = document.querySelector('.popup');
-const popupBtnClose = popupElm.querySelector('.popup__btn-close');
-const popupContainer = document.querySelector('.popup__container');
+const profilePopupElm = document.querySelector('.popup_name_profile-edit');
 const profileElm = document.querySelector('.profile');
 const profileBtnEdit = profileElm.querySelector('.profile__btn-edit');
 const profileBtnAddPlace = profileElm.querySelector('.profile__btn-add');
 const profileNameElm = profileElm.querySelector('.profile__title');
 const profileJobElm = profileElm.querySelector('.profile__description');
-const profileForm = document.querySelector('.form');
+const profileForm = document.querySelector('.form_name_profile-edit');
 const profileNameInput = document.querySelector('.form__item_el_name');
 const profileJobInput = document.querySelector('.form__item_el_job');
 const placesContainer = document.querySelector('.places__list');
+const newPlacePopupElm = document.querySelector('.popup_name_new-place');
+const popupAllBtnClose = document.querySelectorAll('.popup__btn-close');
+const newPlaceForm = document.querySelector('.form_name_new-place');
+const placeTitleInput = document.querySelector('.form__item_el_title');
+const placeUrlInput = document.querySelector('.form__item_el_url');
 
 const initialCards = [
   {
@@ -68,38 +71,36 @@ initialCards.map((item) => {
   placesContainer.append(placeElement);
 });
 
-const buildNewPlacePopup = function() {
-  const newPlaceFormTemplate = document.querySelector('#new-place-form').content;
-  const newPlaceForm = newPlaceFormTemplate.querySelector('.form').cloneNode(true);
-  newPlaceForm.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    const formData = new FormData(evt.target);
-    const newPlaceElm = buildPlaceCard(formData.get('Title'), formData.get('Url'));
-    placesContainer.prepend(newPlaceElm);
-    closePopup();
-    evt.target.remove();
-  });
-
-  return newPlaceForm;
+function showPopup(popupElm) {
+  popupElm.classList.add("popup_opened");
 }
 
 /* The mixture of popup and profile component logic (no incapsulation) is only per request:
 функция открытия попап (в класс должен добавиться модификатор).
 В ней же текстовые значения профайла записываются в значения инпутов */
-function openPopup() {
-  popupElm.classList.add("popup_opened");
+function openEditProfilePopup() {
   // todo: register event listener for close event and escape here
   // bad code - has nothing to do with popup
   profileNameInput.value = profileNameElm.textContent;
   profileJobInput.value = profileJobElm.textContent;
+
+  showPopup(profilePopupElm);
 }
 
-function closePopup() {
-  popupElm.classList.remove("popup_opened");
-  // todo: unsubscribe document from event listener for close event and escape here
+function openNewPlacePopup() {
+  placeTitleInput.value = '';
+  placeUrlInput.value = '';
+  showPopup(newPlacePopupElm);
 }
 
-popupBtnClose.addEventListener("click", closePopup);
+function closePopup(evt) {
+  const parentPopupElm = evt.target.closest('.popup');
+  parentPopupElm.classList.remove('popup_opened');
+}
+
+popupAllBtnClose.forEach((btn) => {
+  btn.addEventListener("click", closePopup);
+});
 
 function updateProfile(name, job) {
   profileNameElm.textContent = name;
@@ -109,14 +110,19 @@ function updateProfile(name, job) {
 function onProfileSubmitted(evt) {
   evt.preventDefault();
   updateProfile(profileNameInput.value, profileJobInput.value);
-  closePopup();
+  closePopup(evt);
 }
 
-profileBtnEdit.addEventListener("click", openPopup);
-profileBtnAddPlace.addEventListener('click', () => {
-  const newPlaceForm = buildNewPlacePopup();
-  popupContainer.append(newPlaceForm);
-  openPopup();
-});
+function onNewPlaceSubmitted(evt) {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  const newPlaceElm = buildPlaceCard(formData.get('Title'), formData.get('Url'));
+  placesContainer.prepend(newPlaceElm);
+  closePopup(evt);
+}
+
+profileBtnEdit.addEventListener("click", openEditProfilePopup);
+profileBtnAddPlace.addEventListener('click', openNewPlacePopup);
 
 profileForm.addEventListener("submit", onProfileSubmitted);
+newPlaceForm.addEventListener("submit", onNewPlaceSubmitted);
