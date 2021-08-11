@@ -2,7 +2,7 @@
   margin: 0;
   padding: 34px 2.25rem 2.25rem;
   max-width: 430px;
-  width: 34vw;
+  min-width: 34vw;
   box-sizing: border-box;
 }
 
