@@ -77,6 +77,8 @@ initialCards.map((item) => {
 });
 
 function showPopup(popupElm) {
+  popupElm.classList.remove("fade-out");
+  popupElm.classList.add("fade-in");
   popupElm.classList.add("popup_opened");
 }
 
@@ -107,7 +109,8 @@ function openPlacePreviewPopup(titleValue, imageLinkValue) {
 
 function closePopup(evt) {
   const parentPopupElm = evt.target.closest('.popup');
-  parentPopupElm.classList.remove('popup_opened');
+  parentPopupElm.classList.remove("fade-in");
+  parentPopupElm.classList.add("fade-out");
 }
 
 popupAllBtnClose.forEach((btn) => {

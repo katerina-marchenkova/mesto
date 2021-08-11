@@ -3,6 +3,8 @@
 /* page and shared styles */
 @import url(../blocks/page/page.css);
 @import url(../blocks/page/__inner/page__inner.css);
+@import url(../blocks/fade-in/fade-in.css);
+@import url(../blocks/fade-out/fade-out.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/form/_place/form_place_popup.css);
 @import url(../blocks/form/__title/form__title.css);

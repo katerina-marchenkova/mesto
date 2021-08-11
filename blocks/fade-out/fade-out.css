@@ -1,0 +1,16 @@
+@keyframes fade-out {
+	from {
+    opacity: 1;
+		visibility: visible;
+	}
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+.fade-out {
+  animation: fade-out 1s linear ;
+  opacity: 0;
+	visibility: hidden;
+}
