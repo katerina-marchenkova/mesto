@@ -51,13 +51,13 @@ const initialCards = [
 ];
 
 /* popup functionality */
-const showPopup = function(popupElm) {
+const showPopup = function (popupElm) {
   popupElm.classList.remove('popup_hidden');
   popupElm.classList.remove('fade-out');
   popupElm.classList.add('fade-in');
 }
 
-const closePopup = function(evt) {
+const closePopup = function (evt) {
   const parentPopupElm = evt.target.closest('.popup');
   parentPopupElm.classList.remove('fade-in');
   parentPopupElm.classList.add('fade-out');
@@ -68,7 +68,7 @@ popupAllBtnClose.forEach((btn) => {
 });
 
 /* load initial cards */
-const buildPlaceCard = function(titleValue, imageLinkValue) {
+const buildPlaceCard = function (titleValue, imageLinkValue) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const imgElement = cardElement.querySelector('.card__image');
