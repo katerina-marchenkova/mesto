@@ -4,5 +4,14 @@
   width: 100%;
   object-fit: cover;
   grid-area: image;
+  -webkit-transition: opacity 0.3s ease-out 0.1s;
+  -moz-transition: opacity 0.3s ease-out 0.1s;
+  -ms-transition: opacity 0.3s ease-out 0.1s;
+  -o-transition: opacity 0.3s ease-out 0.1s;
+  transition: opacity 0.3s ease-out 0.1s;
+}
+
+.card__image:hover {
+  opacity: 0.9;
 }
 

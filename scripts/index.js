@@ -84,7 +84,7 @@ const buildPlaceCard = function(titleValue, imageLinkValue) {
     cardToRemove.remove();
   });
 
-  cardElement.addEventListener('click', () => openPlacePreviewPopup(titleValue, imageLinkValue));
+  imgElement.addEventListener('click', () => openPlacePreviewPopup(titleValue, imageLinkValue));
 
   return cardElement;
 }
