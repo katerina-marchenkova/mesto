@@ -77,9 +77,9 @@ initialCards.map((item) => {
 });
 
 function showPopup(popupElm) {
+  popupElm.classList.remove("popup_hidden");
   popupElm.classList.remove("fade-out");
   popupElm.classList.add("fade-in");
-  popupElm.classList.add("popup_opened");
 }
 
 /* The mixture of popup and profile component logic (no incapsulation) is only per request:
