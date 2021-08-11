@@ -50,6 +50,24 @@ const initialCards = [
   }
 ];
 
+/* popup functionality */
+const showPopup = function(popupElm) {
+  popupElm.classList.remove("popup_hidden");
+  popupElm.classList.remove("fade-out");
+  popupElm.classList.add("fade-in");
+}
+
+const closePopup = function(evt) {
+  const parentPopupElm = evt.target.closest('.popup');
+  parentPopupElm.classList.remove("fade-in");
+  parentPopupElm.classList.add("fade-out");
+}
+
+popupAllBtnClose.forEach((btn) => {
+  btn.addEventListener("click", closePopup);
+});
+
+/* load initial cards */
 const buildPlaceCard = function(titleValue, imageLinkValue) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -76,11 +94,6 @@ initialCards.map((item) => {
   placesContainer.append(placeElement);
 });
 
-function showPopup(popupElm) {
-  popupElm.classList.remove("popup_hidden");
-  popupElm.classList.remove("fade-out");
-  popupElm.classList.add("fade-in");
-}
 
 /* The mixture of popup and profile component logic (no incapsulation) is only per request:
 функция открытия попап (в класс должен добавиться модификатор).
@@ -107,15 +120,6 @@ function openPlacePreviewPopup(titleValue, imageLinkValue) {
   showPopup(placePreviewPopupElm);
 }
 
-function closePopup(evt) {
-  const parentPopupElm = evt.target.closest('.popup');
-  parentPopupElm.classList.remove("fade-in");
-  parentPopupElm.classList.add("fade-out");
-}
-
-popupAllBtnClose.forEach((btn) => {
-  btn.addEventListener("click", closePopup);
-});
 
 function updateProfile(name, job) {
   profileNameElm.textContent = name;
