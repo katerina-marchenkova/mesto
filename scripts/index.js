@@ -19,6 +19,9 @@ const popupAllBtnClose = document.querySelectorAll('.popup__btn-close');
 const newPlaceForm = document.querySelector('.form_name_new-place');
 const placeTitleInput = document.querySelector('.form__item_el_title');
 const placeUrlInput = document.querySelector('.form__item_el_url');
+const placePreviewPopupElm = document.querySelector('.popup_name_place-preview');
+const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
+const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
 
 const initialCards = [
   {
@@ -63,6 +66,8 @@ const buildPlaceCard = function(titleValue, imageLinkValue) {
     cardToRemove.remove();
   });
 
+  cardElement.addEventListener('click', () => openPlacePreviewPopup(titleValue, imageLinkValue));
+
   return cardElement;
 }
 
@@ -91,6 +96,13 @@ function openNewPlacePopup() {
   placeTitleInput.value = '';
   placeUrlInput.value = '';
   showPopup(newPlacePopupElm);
+}
+
+function openPlacePreviewPopup(titleValue, imageLinkValue) {
+  placePreviewImageElm.setAttribute('src', imageLinkValue);
+  placePreviewImageElm.setAttribute('alt', titleValue);
+  placePreviewCaptionElm.textContent = titleValue;
+  showPopup(placePreviewPopupElm);
 }
 
 function closePopup(evt) {

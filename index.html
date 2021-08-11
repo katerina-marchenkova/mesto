@@ -34,6 +34,7 @@
             <button type="button" class="card__like"></button>
           </li>
           <li class="card">
+            <div class="card__overlay"></div>
             <img src="./images/content/element_elbrus.png" class="card__image" alt="Гора Эльбрус">
             <h2 class="card__title">Гора Эльбрус</h2>
             <button type="button" class="card__like"></button>
@@ -87,8 +88,18 @@
         </form>
     </div>
   </div>
+  <div class="popup popup_name_place-preview">
+    <div class="popup__container">
+      <button type="button" class="popup__btn-close"></button>
+      <figure class="place-preview">
+        <img class="place-preview__image">
+        <figcaption class="place-preview__caption"></figcaption>
+      </figure>
+    </div>
+  </div>
   <template id="card-template">
     <li class="card">
+      <div class="card__overlay"></div>
       <img class="card__image">
       <button type="button" class="card__btn-delete card__btn-delete_place_card"></button>
       <h2 class="card__title"></h2>
