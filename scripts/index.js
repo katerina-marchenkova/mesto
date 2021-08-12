@@ -47,7 +47,7 @@ const closePopup = function (popupElm) {
 
 popupAllBtnClose.forEach((btn) => {
   const parentPopupElm = btn.closest('.popup');
-  btn.addEventListener('click', closePopup(parentPopupElm));
+  btn.addEventListener('click', ()=> closePopup(parentPopupElm));
 });
 
 /* load initial cards */
@@ -91,8 +91,7 @@ function openEditProfilePopup() {
 }
 
 function openNewPlacePopup() {
-  placeTitleInput.value = '';
-  placeUrlInput.value = '';
+  newPlaceForm.reset();
   showPopup(newPlacePopupElm);
 }
 
