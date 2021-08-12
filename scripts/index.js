@@ -4,6 +4,14 @@ This one is my next attempt to guess how to pass the task.
 /* internal component variables made global due to:
 Все DOM элементы нужно один раз найти при помощи метода document.querySelector и записать в переменные в начале файла, а затем использовать эти переменные в тех функциях, где они нужны.
 */
+/* places */
+const placesContainer = document.querySelector('.places__list');
+const cardTemplateElm = document.querySelector('#card-template')
+
+/* popup*/
+const popupAllBtnClose = document.querySelectorAll('.popup__btn-close');
+
+/* profile */
 const profilePopupElm = document.querySelector('.popup_name_profile-edit');
 const profileElm = document.querySelector('.profile');
 const profileBtnEdit = profileElm.querySelector('.profile__btn-edit');
@@ -13,42 +21,17 @@ const profileJobElm = profileElm.querySelector('.profile__description');
 const profileForm = document.querySelector('.form_name_profile-edit');
 const profileNameInput = document.querySelector('.form__item_el_name');
 const profileJobInput = document.querySelector('.form__item_el_job');
-const placesContainer = document.querySelector('.places__list');
+
+/* new place*/
 const newPlacePopupElm = document.querySelector('.popup_name_new-place');
-const popupAllBtnClose = document.querySelectorAll('.popup__btn-close');
 const newPlaceForm = document.querySelector('.form_name_new-place');
 const placeTitleInput = document.querySelector('.form__item_el_title');
 const placeUrlInput = document.querySelector('.form__item_el_url');
+
+/* place preview */
 const placePreviewPopupElm = document.querySelector('.popup_name_place-preview');
 const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
 const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 /* popup functionality */
 const showPopup = function (popupElm) {
@@ -57,19 +40,19 @@ const showPopup = function (popupElm) {
   popupElm.classList.add('fade-in');
 }
 
-const closePopup = function (evt) {
-  const parentPopupElm = evt.target.closest('.popup');
-  parentPopupElm.classList.remove('fade-in');
-  parentPopupElm.classList.add('fade-out');
+const closePopup = function (popupElm) {
+  popupElm.classList.remove('fade-in');
+  popupElm.classList.add('fade-out');
 }
 
 popupAllBtnClose.forEach((btn) => {
-  btn.addEventListener('click', closePopup);
+  const parentPopupElm = btn.closest('.popup');
+  btn.addEventListener('click', closePopup(parentPopupElm));
 });
 
 /* load initial cards */
 const buildPlaceCard = function (titleValue, imageLinkValue) {
-  const cardTemplate = document.querySelector('#card-template').content;
+  const cardTemplate = cardTemplateElm.content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const imgElement = cardElement.querySelector('.card__image');
   imgElement.setAttribute('src', imageLinkValue);
@@ -129,7 +112,7 @@ function updateProfile(name, job) {
 function onProfileSubmitted(evt) {
   evt.preventDefault();
   updateProfile(profileNameInput.value, profileJobInput.value);
-  closePopup(evt);
+  closePopup(evt.target.closest('.popup'));
 }
 
 function onNewPlaceSubmitted(evt) {
@@ -137,7 +120,7 @@ function onNewPlaceSubmitted(evt) {
   const formData = new FormData(evt.target);
   const newPlaceElm = buildPlaceCard(formData.get('Title'), formData.get('Url'));
   placesContainer.prepend(newPlaceElm);
-  closePopup(evt);
+  closePopup(evt.target.closest('.popup'));
 }
 
 profileBtnEdit.addEventListener('click', openEditProfilePopup);
