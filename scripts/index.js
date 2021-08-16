@@ -9,7 +9,8 @@ const placesContainer = document.querySelector('.places__list');
 const cardTemplateElm = document.querySelector('#card-template')
 
 /* popup*/
-const popupAllBtnClose = document.querySelectorAll('.popup__btn-close');
+const popupElmsAll = document.querySelectorAll('.popup');
+const popupContainersAll = document.querySelectorAll('.popup__container');
 
 /* profile */
 const profilePopupElm = document.querySelector('.popup_name_profile-edit');
@@ -45,10 +46,13 @@ const closePopup = function (popupElm) {
   popupElm.classList.add('fade-out');
 }
 
-popupAllBtnClose.forEach((btn) => {
-  const parentPopupElm = btn.closest('.popup');
-  btn.addEventListener('click', ()=> closePopup(parentPopupElm));
-});
+popupElmsAll.forEach(elm => {
+  elm.addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('popup__btn-close') || evt.target.classList.contains('popup')) {
+      closePopup(evt.currentTarget);
+    }
+  });
+})
 
 /* load initial cards */
 const buildPlaceCard = function (titleValue, imageLinkValue) {
