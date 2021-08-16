@@ -74,7 +74,7 @@ const buildPlaceCard = (titleValue, imageLinkValue) => {
   imgElement.setAttribute('src', imageLinkValue);
   imgElement.setAttribute('alt', titleValue);
   cardElement.querySelector('.card__title').textContent = titleValue;
-  cardElement.addEventListener('click', function(evt) {
+  cardElement.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('card__like')) {
       evt.target.classList.toggle('card__like_active');
     }
@@ -108,7 +108,7 @@ const resetNewPlaceForm = () => {
   clearFormValidation(validationOptions, newPlaceForm);
 }
 
-profileElm.addEventListener('click', function(evt) {
+profileElm.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('profile__btn-edit')) {
     resetProfileForm();
     showPopup(profilePopupElm);
@@ -125,9 +125,9 @@ const updateProfile = (name, about) => {
   profileAboutElm.textContent = about;
 }
 
-const handleProfileSubmitted  = (evt) => {
+const handleProfileSubmitted = (evt) => {
   evt.preventDefault();
-  if(!evt.target.elements.name.validity.valid || !evt.target.elements.about.validity.valid) {
+  if (!evt.target.elements.name.validity.valid || !evt.target.elements.about.validity.valid) {
     return;
   }
 
@@ -137,7 +137,7 @@ const handleProfileSubmitted  = (evt) => {
 
 const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
-  if(!evt.target.elements.title.validity.valid || !evt.target.elements.url.validity.valid) {
+  if (!evt.target.elements.title.validity.valid || !evt.target.elements.url.validity.valid) {
     return;
   }
 
