@@ -1,16 +1,9 @@
-/* See the proper code (attempt to separate somehow data, services and view components) within the separate brach feature/js-components
-This one is my next attempt to guess how to pass the task.
-*/
-/* internal component variables made global due to:
-Все DOM элементы нужно один раз найти при помощи метода document.querySelector и записать в переменные в начале файла, а затем использовать эти переменные в тех функциях, где они нужны.
-*/
 /* places */
 const placesContainer = document.querySelector('.places__list');
 const cardTemplateElm = document.querySelector('#card-template')
 
 /* popup*/
-const popupElmsAll = document.querySelectorAll('.popup');
-const popupContainersAll = document.querySelectorAll('.popup__container');
+const popupElms = document.querySelectorAll('.popup');
 
 /* profile */
 const profilePopupElm = document.querySelector('.popup_name_profile-edit');
@@ -30,6 +23,7 @@ const placePreviewPopupElm = document.querySelector('.popup_name_place-preview')
 const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
 const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
 
+/* validation options */
 const validationOptions = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -41,23 +35,23 @@ const validationOptions = {
 
 /* popup functionality */
 
-const keydownClose = (evt) => {
+const listenKeydownClose = (evt) => {
   if (evt.key === 'Escape') {
     closePopup(document.querySelector('.popup_opened'));
   }
 }
 
 const closePopup = (popupElm) => {
-  document.removeEventListener('keydown', keydownClose);
+  document.removeEventListener('keydown', listenKeydownClose);
   popupElm.classList.remove('popup_opened');
 }
 
 const showPopup = (popupElm) => {
   popupElm.classList.add('popup_opened');
-  document.addEventListener('keydown', keydownClose);
+  document.addEventListener('keydown', listenKeydownClose);
 }
 
-popupElmsAll.forEach(elm => {
+popupElms.forEach(elm => {
   elm.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('popup__btn-close') || evt.target.classList.contains('popup')) {
       closePopup(evt.currentTarget);
@@ -131,7 +125,7 @@ const updateProfile = (name, about) => {
   profileAboutElm.textContent = about;
 }
 
-const onProfileSubmitted  = (evt) => {
+const handleProfileSubmitted  = (evt) => {
   evt.preventDefault();
   if(!evt.target.elements.name.validity.valid || !evt.target.elements.about.validity.valid) {
     return;
@@ -141,7 +135,7 @@ const onProfileSubmitted  = (evt) => {
   closePopup(evt.target.closest('.popup'));
 }
 
-const onNewPlaceSubmitted = (evt) => {
+const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
   if(!evt.target.elements.title.validity.valid || !evt.target.elements.url.validity.valid) {
     return;
@@ -152,7 +146,7 @@ const onNewPlaceSubmitted = (evt) => {
   closePopup(evt.target.closest('.popup'));
 }
 
-profileForm.addEventListener('submit', onProfileSubmitted);
-newPlaceForm.addEventListener('submit', onNewPlaceSubmitted);
+profileForm.addEventListener('submit', handleProfileSubmitted);
+newPlaceForm.addEventListener('submit', handleNewPlaceSubmitted);
 
 enableValidation(validationOptions);

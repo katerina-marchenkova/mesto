@@ -42,13 +42,13 @@ const toggleButtonState = (options, inputList, buttonElement) => {
 };
 
 const clearFormValidation = (options, formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(options.inputSelector));
+  const formInputs = Array.from(formElement.querySelectorAll(options.inputSelector));
   const buttonElement = formElement.querySelector(options.submitButtonSelector);
-  inputList.forEach((inputElement) => {
+  formInputs.forEach((inputElement) => {
     hideInputError(options, formElement, inputElement);
   });
 
-  toggleButtonState(options, inputList, buttonElement);
+  toggleButtonState(options, formInputs, buttonElement);
 };
 
 const setEventListeners = (options, formElement) => {
