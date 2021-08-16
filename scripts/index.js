@@ -40,15 +40,21 @@ const validationOptions = {
 };
 
 /* popup functionality */
-const showPopup = (popupElm) => {
-  popupElm.classList.remove('popup_hidden');
-  popupElm.classList.remove('fade-out');
-  popupElm.classList.add('fade-in');
+
+const keydownClose = (evt) => {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
 }
 
 const closePopup = (popupElm) => {
-  popupElm.classList.remove('fade-in');
-  popupElm.classList.add('fade-out');
+  document.removeEventListener('keydown', keydownClose);
+  popupElm.classList.remove('popup_opened');
+}
+
+const showPopup = (popupElm) => {
+  popupElm.classList.add('popup_opened');
+  document.addEventListener('keydown', keydownClose);
 }
 
 popupElmsAll.forEach(elm => {
