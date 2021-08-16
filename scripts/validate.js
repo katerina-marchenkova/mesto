@@ -62,7 +62,7 @@ const enableValidation = (options) => {
   });
 };
 
-/*enableValidation({
+enableValidation({
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -70,14 +70,3 @@ const enableValidation = (options) => {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 });
-*/
-
-enableValidation({
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
-

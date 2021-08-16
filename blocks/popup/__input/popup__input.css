@@ -1,4 +1,4 @@
-.form__item {
+.popup__input {
   margin: 20px 0 0;
   padding: 10px 0;
   border: 0;
@@ -13,6 +13,6 @@
   line-height: 17px;
 }
 
-.form__item:focus{
+.popup__input:focus{
   outline: none;
 }
