@@ -15,8 +15,6 @@ const popupContainersAll = document.querySelectorAll('.popup__container');
 /* profile */
 const profilePopupElm = document.querySelector('.popup_name_profile-edit');
 const profileElm = document.querySelector('.profile');
-const profileBtnEdit = profileElm.querySelector('.profile__btn-edit');
-const profileBtnAddPlace = profileElm.querySelector('.profile__btn-add');
 const profileNameElm = profileElm.querySelector('.profile__title');
 const profileAboutElm = profileElm.querySelector('.profile__description');
 const profileForm = document.forms.profile;
@@ -26,22 +24,29 @@ const profileAboutInput = profileForm.elements.about;
 /* new place*/
 const newPlacePopupElm = document.querySelector('.popup_name_new-place');
 const newPlaceForm = document.forms.place;
-const placeTitleInput = newPlaceForm.elements.title;
-const placeUrlInput = newPlaceForm.elements.url;
 
 /* place preview */
 const placePreviewPopupElm = document.querySelector('.popup_name_place-preview');
 const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
 const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
 
+const validationOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
 /* popup functionality */
-const showPopup = function (popupElm) {
+const showPopup = (popupElm) => {
   popupElm.classList.remove('popup_hidden');
   popupElm.classList.remove('fade-out');
   popupElm.classList.add('fade-in');
 }
 
-const closePopup = function (popupElm) {
+const closePopup = (popupElm) => {
   popupElm.classList.remove('fade-in');
   popupElm.classList.add('fade-out');
 }
@@ -55,23 +60,33 @@ popupElmsAll.forEach(elm => {
 })
 
 /* load initial cards */
-const buildPlaceCard = function (titleValue, imageLinkValue) {
+const openPlacePreviewPopup = (titleValue, imageLinkValue) => {
+  placePreviewImageElm.setAttribute('src', imageLinkValue);
+  placePreviewImageElm.setAttribute('alt', titleValue);
+  placePreviewCaptionElm.textContent = titleValue;
+  showPopup(placePreviewPopupElm);
+}
+
+const buildPlaceCard = (titleValue, imageLinkValue) => {
   const cardTemplate = cardTemplateElm.content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const imgElement = cardElement.querySelector('.card__image');
   imgElement.setAttribute('src', imageLinkValue);
   imgElement.setAttribute('alt', titleValue);
   cardElement.querySelector('.card__title').textContent = titleValue;
-  cardElement.querySelector('.card__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__like_active');
-  });
+  cardElement.addEventListener('click', function(evt) {
+    if (evt.target.classList.contains('card__like')) {
+      evt.target.classList.toggle('card__like_active');
+    }
 
-  cardElement.querySelector('.card__btn-delete_place_card').addEventListener('click', function (evt) {
-    const cardToRemove = evt.target.closest('.card')
-    cardToRemove.remove();
-  });
+    if (evt.target.classList.contains('card__btn-delete_place_card')) {
+      cardElement.remove();
+    }
 
-  imgElement.addEventListener('click', () => openPlacePreviewPopup(titleValue, imageLinkValue));
+    if (evt.target.classList.contains('card__image')) {
+      openPlacePreviewPopup(titleValue, imageLinkValue);
+    }
+  });
 
   return cardElement;
 }
@@ -81,50 +96,57 @@ initialCards.map((item) => {
   placesContainer.append(placeElement);
 });
 
-
-/* The mixture of popup and profile component logic (no incapsulation) is only per request:
-функция открытия попап (в класс должен добавиться модификатор).
-В ней же текстовые значения профайла записываются в значения инпутов */
-function openEditProfilePopup() {
+/*profile */
+const resetProfileForm = () => {
   profileNameInput.value = profileNameElm.textContent;
   profileAboutInput.value = profileAboutElm.textContent;
-
-  showPopup(profilePopupElm);
+  clearFormValidation(validationOptions, profileForm);
 }
 
-function openNewPlacePopup() {
+const resetNewPlaceForm = () => {
   newPlaceForm.reset();
-  showPopup(newPlacePopupElm);
+  clearFormValidation(validationOptions, newPlaceForm);
 }
 
-function openPlacePreviewPopup(titleValue, imageLinkValue) {
-  placePreviewImageElm.setAttribute('src', imageLinkValue);
-  placePreviewImageElm.setAttribute('alt', titleValue);
-  placePreviewCaptionElm.textContent = titleValue;
-  showPopup(placePreviewPopupElm);
-}
+profileElm.addEventListener('click', function(evt) {
+  if (evt.target.classList.contains('profile__btn-edit')) {
+    resetProfileForm();
+    showPopup(profilePopupElm);
+  }
 
+  if (evt.target.classList.contains('profile__btn-add')) {
+    resetNewPlaceForm();
+    showPopup(newPlacePopupElm);
+  }
+});
 
-function updateProfile(name, about) {
+const updateProfile = (name, about) => {
   profileNameElm.textContent = name;
   profileAboutElm.textContent = about;
 }
 
-function onProfileSubmitted(evt) {
+const onProfileSubmitted  = (evt) => {
   evt.preventDefault();
-  updateProfile(profileNameInput.value, profileJobInput.value);
+  if(!evt.target.elements.name.validity.valid || !evt.target.elements.about.validity.valid) {
+    return;
+  }
+
+  updateProfile(evt.target.elements.name.value, evt.target.elements.about.value);
   closePopup(evt.target.closest('.popup'));
 }
 
-function onNewPlaceSubmitted(evt) {
+const onNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
+  if(!evt.target.elements.title.validity.valid || !evt.target.elements.url.validity.valid) {
+    return;
+  }
+
   const newPlaceElm = buildPlaceCard(evt.target.elements.title.value, evt.target.elements.url.value);
   placesContainer.prepend(newPlaceElm);
   closePopup(evt.target.closest('.popup'));
 }
 
-profileBtnEdit.addEventListener('click', openEditProfilePopup);
-profileBtnAddPlace.addEventListener('click', openNewPlacePopup);
-
 profileForm.addEventListener('submit', onProfileSubmitted);
 newPlaceForm.addEventListener('submit', onNewPlaceSubmitted);
+
+enableValidation(validationOptions);
