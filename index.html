@@ -37,10 +37,10 @@
   </div>
   <div class="popup popup_hidden popup_name_profile-edit">
     <div class="popup__container">
-      <form name="profile" class="popup__form form_name_profile-edit" novalidate>
+      <form name="profile" class="popup__form" novalidate>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input name="Name" class="popup__input form__item_el_name" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
-        <input name="Job" class="popup__input form__item_el_job" value="Исследователь океана" minlength="2" maxlength="200" required>
+        <input name="name" class="popup__input" value="Жак-Ив Кусто" minlength="2" maxlength="40" required>
+        <input name="about" class="popup__input" value="Исследователь океана" minlength="2" maxlength="200" required>
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
       <button type="button" class="popup__btn-close"></button>
@@ -49,10 +49,10 @@
   <div class="popup popup_hidden popup_name_new-place">
     <div class="popup__container">
       <button type="button" class="popup__btn-close"></button>
-      <form name="place" class="popup__form form_name_new-place" novalidate>
+      <form name="place" class="popup__form" novalidate>
         <h2 class="popup__title">Новое место</h2>
-        <input name="Title" class="popup__input form__item_el_title" placeholder="Название" minlength="2" maxlength="30" required>
-        <input name="Url" type="url" class="popup__input form__item_el_url" placeholder="Ссылка на картинку" required>
+        <input name="title" class="popup__input" placeholder="Название" minlength="2" maxlength="30" required>
+        <input name="url" type="url" class="popup__input" placeholder="Ссылка на картинку" required>
         <button type="submit" class="popup__button">Создать</button>
       </form>
     </div>

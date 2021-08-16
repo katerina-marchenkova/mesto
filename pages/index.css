@@ -5,8 +5,6 @@
 @import url(../blocks/page/__inner/page__inner.css);
 @import url(../blocks/fade-in/fade-in.css);
 @import url(../blocks/fade-out/fade-out.css);
-@import url(../blocks/form/__button/form__button.css);
-@import url(../blocks/form/__button/_disabled/form__button_disabled.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_hidden/popup_hidden.css);
 @import url(../blocks/popup/__btn-close/popup__btn-close.css);

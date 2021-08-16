@@ -17,16 +17,16 @@ const profileElm = document.querySelector('.profile');
 const profileBtnEdit = profileElm.querySelector('.profile__btn-edit');
 const profileBtnAddPlace = profileElm.querySelector('.profile__btn-add');
 const profileNameElm = profileElm.querySelector('.profile__title');
-const profileJobElm = profileElm.querySelector('.profile__description');
-const profileForm = document.querySelector('.form_name_profile-edit');
-const profileNameInput = document.querySelector('.form__item_el_name');
-const profileJobInput = document.querySelector('.form__item_el_job');
+const profileAboutElm = profileElm.querySelector('.profile__description');
+const profileForm = document.forms.profile;
+const profileNameInput = profileForm.elements.name;
+const profileAboutInput = profileForm.elements.about;
 
 /* new place*/
 const newPlacePopupElm = document.querySelector('.popup_name_new-place');
-const newPlaceForm = document.querySelector('.form_name_new-place');
-const placeTitleInput = document.querySelector('.form__item_el_title');
-const placeUrlInput = document.querySelector('.form__item_el_url');
+const newPlaceForm = document.forms.place;
+const placeTitleInput = newPlaceForm.elements.title;
+const placeUrlInput = newPlaceForm.elements.url;
 
 /* place preview */
 const placePreviewPopupElm = document.querySelector('.popup_name_place-preview');
@@ -82,10 +82,8 @@ initialCards.map((item) => {
 функция открытия попап (в класс должен добавиться модификатор).
 В ней же текстовые значения профайла записываются в значения инпутов */
 function openEditProfilePopup() {
-  // todo: register event listener for close event and escape here
-  // bad code - has nothing to do with popup
   profileNameInput.value = profileNameElm.textContent;
-  profileJobInput.value = profileJobElm.textContent;
+  profileAboutInput.value = profileAboutElm.textContent;
 
   showPopup(profilePopupElm);
 }
@@ -103,9 +101,9 @@ function openPlacePreviewPopup(titleValue, imageLinkValue) {
 }
 
 
-function updateProfile(name, job) {
+function updateProfile(name, about) {
   profileNameElm.textContent = name;
-  profileJobElm.textContent = job;
+  profileAboutElm.textContent = about;
 }
 
 function onProfileSubmitted(evt) {
@@ -116,8 +114,7 @@ function onProfileSubmitted(evt) {
 
 function onNewPlaceSubmitted(evt) {
   evt.preventDefault();
-  const formData = new FormData(evt.target);
-  const newPlaceElm = buildPlaceCard(formData.get('Title'), formData.get('Url'));
+  const newPlaceElm = buildPlaceCard(evt.target.elements.title.value, evt.target.elements.url.value);
   placesContainer.prepend(newPlaceElm);
   closePopup(evt.target.closest('.popup'));
 }
