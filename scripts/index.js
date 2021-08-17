@@ -122,11 +122,13 @@ const updateProfile = (profileData) => {
 }
 
 const handleProfileSubmitted = (evt) => {
+  evt.preventDefault();
   updateProfile({name: evt.target.elements.name.value, about: evt.target.elements.about.value});
   closePopup(profilePopupElm);
 }
 
 const handleNewPlaceSubmitted = (evt) => {
+  evt.preventDefault();
   const newPlaceElm = buildPlaceCard({name: evt.target.elements.title.value, link: evt.target.elements.url.value});
   placesContainer.prepend(newPlaceElm);
   closePopup(newPlacePopupElm);
