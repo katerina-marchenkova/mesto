@@ -74,19 +74,15 @@ const buildPlaceCard = (cardData) => {
   imgElement.setAttribute('src', cardData.link);
   imgElement.setAttribute('alt', cardData.name);
   cardElement.querySelector('.card__title').textContent = cardData.name;
-  cardElement.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('card__like')) {
-      evt.target.classList.toggle('card__like_active');
-    }
-
-    if (evt.target.classList.contains('card__btn-delete_place_card')) {
-      cardElement.remove();
-    }
-
-    if (evt.target.classList.contains('card__image')) {
-      openPlacePreviewPopup(cardData);
-    }
+  cardElement.querySelector('.card__like').addEventListener('click', function (evt) {
+    evt.target.classList.toggle('card__like_active');
   });
+
+  cardElement.querySelector('.card__btn-delete_place_card').addEventListener('click', function (evt) {
+    cardElement.remove();
+  });
+
+  imgElement.addEventListener('click', () => openPlacePreviewPopup(cardData));
 
   return cardElement;
 }
