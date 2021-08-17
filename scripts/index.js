@@ -60,20 +60,20 @@ popupElms.forEach(elm => {
 })
 
 /* load initial cards */
-const openPlacePreviewPopup = (titleValue, imageLinkValue) => {
-  placePreviewImageElm.setAttribute('src', imageLinkValue);
-  placePreviewImageElm.setAttribute('alt', titleValue);
-  placePreviewCaptionElm.textContent = titleValue;
+const openPlacePreviewPopup = (cardData) => {
+  placePreviewImageElm.setAttribute('src', cardData.link);
+  placePreviewImageElm.setAttribute('alt', cardData.name);
+  placePreviewCaptionElm.textContent = cardData.name;
   showPopup(placePreviewPopupElm);
 }
 
-const buildPlaceCard = (titleValue, imageLinkValue) => {
+const buildPlaceCard = (cardData) => {
   const cardTemplate = cardTemplateElm.content;
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   const imgElement = cardElement.querySelector('.card__image');
-  imgElement.setAttribute('src', imageLinkValue);
-  imgElement.setAttribute('alt', titleValue);
-  cardElement.querySelector('.card__title').textContent = titleValue;
+  imgElement.setAttribute('src', cardData.link);
+  imgElement.setAttribute('alt', cardData.name);
+  cardElement.querySelector('.card__title').textContent = cardData.name;
   cardElement.addEventListener('click', function (evt) {
     if (evt.target.classList.contains('card__like')) {
       evt.target.classList.toggle('card__like_active');
@@ -84,7 +84,7 @@ const buildPlaceCard = (titleValue, imageLinkValue) => {
     }
 
     if (evt.target.classList.contains('card__image')) {
-      openPlacePreviewPopup(titleValue, imageLinkValue);
+      openPlacePreviewPopup(cardData);
     }
   });
 
@@ -92,7 +92,7 @@ const buildPlaceCard = (titleValue, imageLinkValue) => {
 }
 
 initialCards.map((item) => {
-  const placeElement = buildPlaceCard(item.name, item.link);
+  const placeElement = buildPlaceCard(item);
   placesContainer.append(placeElement);
 });
 
@@ -120,33 +120,22 @@ profileElm.addEventListener('click', function (evt) {
   }
 });
 
-const updateProfile = (name, about) => {
-  profileNameElm.textContent = name;
-  profileAboutElm.textContent = about;
+const updateProfile = (profileData) => {
+  profileNameElm.textContent = profileData.name;
+  profileAboutElm.textContent = profileData.about;
 }
 
 const handleProfileSubmitted = (evt) => {
-  evt.preventDefault();
-  if (!evt.target.elements.name.validity.valid || !evt.target.elements.about.validity.valid) {
-    return;
-  }
-
-  updateProfile(evt.target.elements.name.value, evt.target.elements.about.value);
-  closePopup(evt.target.closest('.popup'));
+  updateProfile({name: evt.target.elements.name.value, about: evt.target.elements.about.value});
+  closePopup(profilePopupElm);
 }
 
 const handleNewPlaceSubmitted = (evt) => {
-  evt.preventDefault();
-  if (!evt.target.elements.title.validity.valid || !evt.target.elements.url.validity.valid) {
-    return;
-  }
-
-  const newPlaceElm = buildPlaceCard(evt.target.elements.title.value, evt.target.elements.url.value);
+  const newPlaceElm = buildPlaceCard({name: evt.target.elements.title.value, link: evt.target.elements.url.value});
   placesContainer.prepend(newPlaceElm);
-  closePopup(evt.target.closest('.popup'));
+  closePopup(newPlacePopupElm);
 }
 
+enableValidation(validationOptions);
 profileForm.addEventListener('submit', handleProfileSubmitted);
 newPlaceForm.addEventListener('submit', handleNewPlaceSubmitted);
-
-enableValidation(validationOptions);

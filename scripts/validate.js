@@ -41,6 +41,11 @@ const toggleButtonState = (options, inputList, buttonElement) => {
   }
 };
 
+const checkFormIsValid = (options, formElement) => {
+  const formInputs = Array.from(formElement.querySelectorAll(options.inputSelector));
+  return !hasInvalidInput(formInputs);
+};
+
 const clearFormValidation = (options, formElement) => {
   const formInputs = Array.from(formElement.querySelectorAll(options.inputSelector));
   const buttonElement = formElement.querySelector(options.submitButtonSelector);
@@ -68,6 +73,9 @@ const enableValidation = (options) => {
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
+      if (!checkFormIsValid(options, formElement)) {
+        evt.stopImmediatePropagation();
+      }
     });
 
     setEventListeners(options, formElement);
