@@ -1,6 +1,9 @@
+import { initialCardsData } from './initial-cards-data.js';
+import { Card } from '../components/Card.js';
+
 /* places */
 const placesContainer = document.querySelector('.places__list');
-const cardTemplateElm = document.querySelector('#card-template')
+const cardTemplateSelector = '#card-template';
 
 /* popup*/
 const popupElms = document.querySelectorAll('.popup');
@@ -67,28 +70,8 @@ const openPlacePreviewPopup = (cardData) => {
   showPopup(placePreviewPopupElm);
 }
 
-const buildPlaceCard = (cardData) => {
-  const cardTemplate = cardTemplateElm.content;
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const imgElement = cardElement.querySelector('.card__image');
-  imgElement.setAttribute('src', cardData.link);
-  imgElement.setAttribute('alt', cardData.name);
-  cardElement.querySelector('.card__title').textContent = cardData.name;
-  cardElement.querySelector('.card__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__like_active');
-  });
-
-  cardElement.querySelector('.card__btn-delete_place_card').addEventListener('click', function (evt) {
-    cardElement.remove();
-  });
-
-  imgElement.addEventListener('click', () => openPlacePreviewPopup(cardData));
-
-  return cardElement;
-}
-
-initialCards.map((item) => {
-  const placeElement = buildPlaceCard(item);
+initialCardsData.map((item) => {
+  const placeElement = new Card({...item, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
   placesContainer.append(placeElement);
 });
 
