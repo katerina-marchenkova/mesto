@@ -2,7 +2,7 @@
   margin: 0;
   padding: 34px 2.25rem 2.25rem;
   max-width: 430px;
-  min-width: 34vw;
+  width: 100%;
   box-sizing: border-box;
   align-items: center;
   background: #fff;
@@ -15,6 +15,6 @@
 @media screen and (max-width: 425px) {
   .popup__form {
     padding: 25px 22px 22px;
-    max-width: 282px;
+    max-width: calc(100% - 38px);
   }
 }
