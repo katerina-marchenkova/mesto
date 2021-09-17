@@ -8,9 +8,8 @@ export class FormValidator {
     const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
     const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
-    var self = this;
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
+      inputElement.addEventListener('input', () => {
         self._checkInputValidity(inputElement);
         self._toggleButtonState(inputList, buttonElement);
       });
@@ -63,7 +62,7 @@ export class FormValidator {
   enableValidation() {
     const formList = Array.from(document.querySelectorAll(this._options.formSelector));
     formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function (evt) {
+      formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
         if (!this.checkFormIsValid()) {
           evt.stopImmediatePropagation();

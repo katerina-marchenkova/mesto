@@ -18,13 +18,11 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._element.querySelector('.card__like').addEventListener('click', function (evt) {
+    this._element.querySelector('.card__like').addEventListener('click', (evt) => {
       this._handleLikeClick(evt);
     });
 
-    this._element.querySelector('.card__btn-delete_place_card').addEventListener('click', function (evt) {
-      this._handleRemoveClick();
-    });
+    this._element.querySelector('.card__btn-delete_place_card').addEventListener('click', () => this._handleRemoveClick());
 
     this._imgElement.addEventListener('click', () => {
       this._handlePreviewClick();
