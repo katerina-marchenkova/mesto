@@ -75,7 +75,7 @@ export class FormValidator {
 
   checkFormIsValid() {
     const formInputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-    return !hasInvalidInput(formInputs);
+    return !this.hasInvalidInput(formInputs);
   }
 
   clearFormValidation = () => {
