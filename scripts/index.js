@@ -72,7 +72,7 @@ const openPlacePreviewPopup = (cardData) => {
 }
 
 initialCardsData.map((item) => {
-  const placeElement = new Card({...item, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
+  const placeElement = new Card({ ...item, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
   placesContainer.append(placeElement);
 });
 
@@ -115,7 +115,10 @@ const handleProfileSubmitted = (evt) => {
 
 const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
-  const newPlaceElm = buildPlaceCard({ name: evt.target.elements.title.value, link: evt.target.elements.url.value });
+  const newPlaceElm =
+    new Card({ name: evt.target.elements.title.value, link: evt.target.elements.url.value, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector)
+    .generateCard();
+
   placesContainer.prepend(newPlaceElm);
   closePopup(newPlacePopupElm);
 }
