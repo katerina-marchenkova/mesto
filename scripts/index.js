@@ -1,5 +1,6 @@
 import { initialCardsData } from './initial-cards-data.js';
 import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
 
 /* places */
 const placesContainer = document.querySelector('.places__list');
@@ -76,15 +77,17 @@ initialCardsData.map((item) => {
 });
 
 /*profile */
+const profileFormValidator = new FormValidator(validationOptions, profileForm);
+const newPlaceFormValidator = new FormValidator(validationOptions, newPlaceForm);
 const resetProfileForm = () => {
   profileNameInput.value = profileNameElm.textContent;
   profileAboutInput.value = profileAboutElm.textContent;
-  clearFormValidation(validationOptions, profileForm);
+  profileFormValidator.clearFormValidation();
 }
 
 const resetNewPlaceForm = () => {
   newPlaceForm.reset();
-  clearFormValidation(validationOptions, newPlaceForm);
+  newPlaceFormValidator.clearFormValidation();
 }
 
 profileElm.addEventListener('click', function (evt) {
@@ -117,6 +120,7 @@ const handleNewPlaceSubmitted = (evt) => {
   closePopup(newPlacePopupElm);
 }
 
-enableValidation(validationOptions);
+profileFormValidator.enableValidation();
+newPlaceFormValidator.enableValidation();
 profileForm.addEventListener('submit', handleProfileSubmitted);
 newPlaceForm.addEventListener('submit', handleNewPlaceSubmitted);
