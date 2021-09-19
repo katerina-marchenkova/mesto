@@ -2,6 +2,7 @@ export class FormValidator {
   constructor(options, formElement) {
     this._options = options || {}; // to do: define defaults
     this._formElement = formElement;
+    this._formInputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
   }
 
   _setEventListeners() {
@@ -60,9 +61,7 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const formList = Array.from(document.querySelectorAll(this._options.formSelector));
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', (evt) => {
+    this._formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
         if (!this.checkFormIsValid()) {
           evt.stopImmediatePropagation();
@@ -70,21 +69,18 @@ export class FormValidator {
       });
 
      this._setEventListeners();
-    });
   }
 
   checkFormIsValid() {
-    const formInputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-    return !this.hasInvalidInput(formInputs);
+    return !this._hasInvalidInput(this._formInputs);
   }
 
   clearFormValidation = () => {
-    const formInputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
     const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
     formInputs.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
 
-    this._toggleButtonState(formInputs, buttonElement);
+    this._toggleButtonState(this._formInputs, buttonElement);
   }
 }
