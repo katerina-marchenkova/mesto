@@ -71,9 +71,12 @@ const openPlacePreviewPopup = (cardData) => {
   showPopup(placePreviewPopupElm);
 }
 
+const createCard = function(data) {
+  return new Card({ ...data, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
+}
+
 initialCardsData.map((item) => {
-  const placeElement = new Card({ ...item, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
-  placesContainer.append(placeElement);
+  placesContainer.append(createCard(item));
 });
 
 /*profile */
@@ -90,16 +93,15 @@ const resetNewPlaceForm = () => {
   newPlaceFormValidator.clearFormValidation();
 }
 
-profileElm.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('profile__btn-edit')) {
+profileElm.querySelector('.profile__btn-edit').addEventListener('click', function (evt) {
     resetProfileForm();
     showPopup(profilePopupElm);
-  }
+});
 
-  if (evt.target.classList.contains('profile__btn-add')) {
+
+profileElm.querySelector('.profile__btn-add').addEventListener('click', function (evt) {
     resetNewPlaceForm();
     showPopup(newPlacePopupElm);
-  }
 });
 
 const updateProfile = (profileData) => {
@@ -116,8 +118,7 @@ const handleProfileSubmitted = (evt) => {
 const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
   const newPlaceElm =
-    new Card({ name: evt.target.elements.title.value, link: evt.target.elements.url.value, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector)
-    .generateCard();
+    createCard({ name: evt.target.elements.title.value, link: evt.target.elements.url.value});
 
   placesContainer.prepend(newPlaceElm);
   closePopup(newPlacePopupElm);
