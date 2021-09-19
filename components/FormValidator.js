@@ -2,34 +2,33 @@ export class FormValidator {
   constructor(options, formElement) {
     this._options = options || {}; // to do: define defaults
     this._formElement = formElement;
-    this._formInputs = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
+    this._submitButton = this._formElement.querySelector(this._options.submitButtonSelector);
   }
 
   _setEventListeners() {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._options.inputSelector));
-    const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }
 
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.setAttribute('disabled', true);
-      buttonElement.classList.add(this._options.inactiveButtonClass);
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this._submitButton.setAttribute('disabled', true);
+      this._submitButton.classList.add(this._options.inactiveButtonClass);
     } else {
-      buttonElement.classList.remove(this._options.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
+      this._submitButton.classList.remove(this._options.inactiveButtonClass);
+      this._submitButton.removeAttribute('disabled');
     }
   }
 
-  _hasInvalidInput = (inputList) => {
+  _hasInvalidInput = () => {
     // проходим по этому массиву методом some
-    return inputList.some((inputElement) => {
+    return this._inputList.some((inputElement) => {
       // Если поле не валидно, колбэк вернёт true
       // Обход массива прекратится и вся фунцкция
       // hasInvalidInput вернёт true
@@ -62,25 +61,20 @@ export class FormValidator {
 
   enableValidation() {
     this._formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();
-        if (!this.checkFormIsValid()) {
-          evt.stopImmediatePropagation();
-        }
-      });
+      evt.preventDefault();
+      if (!this._formElement.checkValidity()) {
+        evt.stopImmediatePropagation();
+      }
+    });
 
-     this._setEventListeners();
-  }
-
-  checkFormIsValid() {
-    return !this._hasInvalidInput(this._formInputs);
+    this._setEventListeners();
   }
 
   clearFormValidation = () => {
-    const buttonElement = this._formElement.querySelector(this._options.submitButtonSelector);
-    formInputs.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
 
-    this._toggleButtonState(this._formInputs, buttonElement);
+    this._toggleButtonState();
   }
 }
