@@ -10,3 +10,6 @@ export const validationOptions = {
 
 export const placesListSelector = '.places__list';
 export const cardTemplateSelector = '#card-template';
+
+export const profileNameElmSelector = '.profile__title';
+export const profileAboutElmSelector = '.profile__description';

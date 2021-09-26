@@ -1,9 +1,17 @@
 import '../pages/index.css';
-import { validationOptions, placesListSelector, cardTemplateSelector } from '../utils/constants.js';
+import {
+  validationOptions,
+  placesListSelector,
+  cardTemplateSelector,
+  profileNameElmSelector,
+  profileAboutElmSelector
+} from '../utils/constants.js';
+
 import { initialCardsData } from '../utils/initial-cards-data.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
 
 /* popup*/
 const popupElms = document.querySelectorAll('.popup');
@@ -11,8 +19,6 @@ const popupElms = document.querySelectorAll('.popup');
 /* profile */
 const profilePopupElm = document.querySelector('.popup_name_profile-edit');
 const profileElm = document.querySelector('.profile');
-const profileNameElm = profileElm.querySelector('.profile__title');
-const profileAboutElm = profileElm.querySelector('.profile__description');
 const profileForm = document.forms.profile;
 const profileNameInput = profileForm.elements.name;
 const profileAboutInput = profileForm.elements.about;
@@ -26,7 +32,9 @@ const placePreviewPopupElm = document.querySelector('.popup_name_place-preview')
 const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
 const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
 
-const createCardElement = function(data) {
+const userInfoElement = new UserInfo({nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector})
+
+const createCardElement = function (data) {
   const card = new Card({ data: data, handleCardClick: openPlacePreviewPopup }, cardTemplateSelector);
   const cardElement = card.generateCard();
   return cardElement;
@@ -35,8 +43,8 @@ const createCardElement = function(data) {
 const placesList = new Section({
   items: initialCardsData,
   renderer: (item) => {
-      const cardElement = createCardElement(item);
-      placesList.addItem(cardElement);
+    const cardElement = createCardElement(item);
+    placesList.addItem(cardElement);
   }
 }, placesListSelector);
 
@@ -66,7 +74,6 @@ popupElms.forEach(elm => {
   });
 })
 
-/* load initial cards */
 const openPlacePreviewPopup = (cardData) => {
   placePreviewImageElm.setAttribute('src', cardData.link);
   placePreviewImageElm.setAttribute('alt', cardData.name);
@@ -78,8 +85,9 @@ const openPlacePreviewPopup = (cardData) => {
 const profileFormValidator = new FormValidator(validationOptions, profileForm);
 const newPlaceFormValidator = new FormValidator(validationOptions, newPlaceForm);
 const resetProfileForm = () => {
-  profileNameInput.value = profileNameElm.textContent;
-  profileAboutInput.value = profileAboutElm.textContent;
+  const userInfo = userInfoElement.getUserInfo();
+  profileNameInput.value = userInfo.name;
+  profileAboutInput.value = userInfo.about;
   profileFormValidator.clearFormValidation();
 }
 
@@ -89,30 +97,25 @@ const resetNewPlaceForm = () => {
 }
 
 profileElm.querySelector('.profile__btn-edit').addEventListener('click', function (evt) {
-    resetProfileForm();
-    showPopup(profilePopupElm);
+  resetProfileForm();
+  showPopup(profilePopupElm);
 });
 
 
 profileElm.querySelector('.profile__btn-add').addEventListener('click', function (evt) {
-    resetNewPlaceForm();
-    showPopup(newPlacePopupElm);
+  resetNewPlaceForm();
+  showPopup(newPlacePopupElm);
 });
-
-const updateProfile = (profileData) => {
-  profileNameElm.textContent = profileData.name;
-  profileAboutElm.textContent = profileData.about;
-}
 
 const handleProfileSubmitted = (evt) => {
   evt.preventDefault();
-  updateProfile({ name: evt.target.elements.name.value, about: evt.target.elements.about.value });
+  userInfoElement.setUserInfo({ name: evt.target.elements.name.value, about: evt.target.elements.about.value });
   closePopup(profilePopupElm);
 }
 
 const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
-  const cardElement = createCardElement({ name: evt.target.elements.title.value, link: evt.target.elements.url.value});
+  const cardElement = createCardElement({ name: evt.target.elements.title.value, link: evt.target.elements.url.value });
   placesList.addItem(cardElement);
   closePopup(newPlacePopupElm);
 }
