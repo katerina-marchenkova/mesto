@@ -4,7 +4,8 @@ import {
   placesListSelector,
   cardTemplateSelector,
   profileNameElmSelector,
-  profileAboutElmSelector
+  profileAboutElmSelector,
+  placePreviewPopupSelector
 } from '../utils/constants.js';
 
 import { initialCardsData } from '../utils/initial-cards-data.js';
@@ -12,6 +13,7 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupWithImage from '../components/PopupWithImage';
 
 /* popup*/
 const popupElms = document.querySelectorAll('.popup');
@@ -27,15 +29,11 @@ const profileAboutInput = profileForm.elements.about;
 const newPlacePopupElm = document.querySelector('.popup_name_new-place');
 const newPlaceForm = document.forms.place;
 
-/* place preview */
-const placePreviewPopupElm = document.querySelector('.popup_name_place-preview');
-const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
-const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
-
-const userInfoElement = new UserInfo({nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector})
+const userInfoElement = new UserInfo({nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector});
+const placePreviewPopupElement = new PopupWithImage(placePreviewPopupSelector);
 
 const createCardElement = function (data) {
-  const card = new Card({ data: data, handleCardClick: openPlacePreviewPopup }, cardTemplateSelector);
+  const card = new Card({ data: data, handleCardClick: () => { placePreviewPopupElement.open(data); } }, cardTemplateSelector);
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -74,12 +72,7 @@ popupElms.forEach(elm => {
   });
 })
 
-const openPlacePreviewPopup = (cardData) => {
-  placePreviewImageElm.setAttribute('src', cardData.link);
-  placePreviewImageElm.setAttribute('alt', cardData.name);
-  placePreviewCaptionElm.textContent = cardData.name;
-  showPopup(placePreviewPopupElm);
-}
+
 
 /*profile */
 const profileFormValidator = new FormValidator(validationOptions, profileForm);

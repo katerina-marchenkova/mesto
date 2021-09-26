@@ -13,3 +13,5 @@ export const cardTemplateSelector = '#card-template';
 
 export const profileNameElmSelector = '.profile__title';
 export const profileAboutElmSelector = '.profile__description';
+
+export const placePreviewPopupSelector = '.popup_name_place-preview';
