@@ -1,11 +1,9 @@
 import '../pages/index.css';
-import { initialCardsData } from './initial-cards-data.js';
+import { validationOptions, placesListSelector, cardTemplateSelector } from '../utils/constants.js';
+import { initialCardsData } from '../utils/initial-cards-data.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
-
-/* places */
-const placesContainer = document.querySelector('.places__list');
-const cardTemplateSelector = '#card-template';
+import Section from '../components/Section.js';
 
 /* popup*/
 const popupElms = document.querySelectorAll('.popup');
@@ -28,15 +26,19 @@ const placePreviewPopupElm = document.querySelector('.popup_name_place-preview')
 const placePreviewImageElm = placePreviewPopupElm.querySelector('.place-preview__image');
 const placePreviewCaptionElm = placePreviewPopupElm.querySelector('.place-preview__caption');
 
-/* validation options */
-const validationOptions = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-};
+const createCardElement = function(data) {
+  const card = new Card({ data: data, handleCardClick: openPlacePreviewPopup }, cardTemplateSelector);
+  const cardElement = card.generateCard();
+  return cardElement;
+}
+
+const placesList = new Section({
+  items: initialCardsData,
+  renderer: (item) => {
+      const cardElement = createCardElement(item);
+      placesList.addItem(cardElement);
+  }
+}, placesListSelector);
 
 /* popup functionality */
 
@@ -71,14 +73,6 @@ const openPlacePreviewPopup = (cardData) => {
   placePreviewCaptionElm.textContent = cardData.name;
   showPopup(placePreviewPopupElm);
 }
-
-const createCard = function(data) {
-  return new Card({ ...data, openPreviewPopup: openPlacePreviewPopup }, cardTemplateSelector).generateCard();
-}
-
-initialCardsData.map((item) => {
-  placesContainer.append(createCard(item));
-});
 
 /*profile */
 const profileFormValidator = new FormValidator(validationOptions, profileForm);
@@ -118,12 +112,12 @@ const handleProfileSubmitted = (evt) => {
 
 const handleNewPlaceSubmitted = (evt) => {
   evt.preventDefault();
-  const newPlaceElm =
-    createCard({ name: evt.target.elements.title.value, link: evt.target.elements.url.value});
-
-  placesContainer.prepend(newPlaceElm);
+  const cardElement = createCardElement({ name: evt.target.elements.title.value, link: evt.target.elements.url.value});
+  placesList.addItem(cardElement);
   closePopup(newPlacePopupElm);
 }
+
+placesList.renderItems();
 
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();

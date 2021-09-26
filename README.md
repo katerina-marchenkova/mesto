@@ -43,5 +43,5 @@ npm run dev
 npm run build
 
 ## Развертывание
-Сейчас развертывается на Github Pages[здесь](https://katerina-marchenkova.github.io/mesto/)
+Восстановить развертывание на Github Pages[здесь](https://katerina-marchenkova.github.io/mesto/)
 

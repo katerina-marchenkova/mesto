@@ -1,9 +1,9 @@
 export class Card {
-  constructor(data, cardSelector) {
+  constructor({data, handleCardClick}, cardSelector) {
     this._name = data.name;
     this._link = data.link;
     this._isLiked = data.liked || false;
-    this._openPreviewPopupFunc = data.openPreviewPopup || {};
+    this._handleCardClick = handleCardClick || {};
     this._cardSelector = cardSelector;
   }
 
@@ -38,8 +38,8 @@ export class Card {
   }
 
   _handlePreviewClick() {
-    if (typeof this._openPreviewPopupFunc === 'function') {
-      this._openPreviewPopupFunc({ link: this._link, name: this._name });
+    if (typeof this._handleCardClick === 'function') {
+      this._handleCardClick({ link: this._link, name: this._name });
     }
   }
 
