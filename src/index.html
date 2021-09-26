@@ -7,8 +7,7 @@
   <title>Mesto Russia</title>
   <meta name="description" content="Путешественники и места в России" />
   <meta name="author" content="Катерина Марченкова" />
-  <link rel="icon" href="./images/favico.png" />
-  <link rel="stylesheet" href="./pages/index.css" />
+  <link rel="icon" href="<%=require('./images/favico.png')%>" />
 </head>
 
 <body class="page">
@@ -18,7 +17,7 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/content/avatar_cousteau.jpg" class="profile__avatar" alt="Фото" />
+        <img src="<%=require('./images/content/avatar_cousteau.jpg')%>" class="profile__avatar" alt="Фото" />
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button type="button" class="profile__btn-edit"></button>
@@ -81,7 +80,6 @@
       <button type="button" class="card__like"></button>
     </li>
   </template>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>

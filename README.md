@@ -38,10 +38,9 @@
   * * [SVG](https://jakearchibald.github.io/svgomg/)
 
 ## Сборка и тестирование
-Не настроена пока.
-* нет препроцессора для стилей
-* нет минификации
-* нет хеширования
+Сборка с помощью webpack
+npm run dev
+npm run build
 
 ## Развертывание
 Сейчас развертывается на Github Pages[здесь](https://katerina-marchenkova.github.io/mesto/)
