@@ -45,7 +45,7 @@ const placesList = new Section({
 const newPlacePopupElement = new PopupWithForm({
   selector: newPlacePopupSelector, handleFormSubmit: (formData) => {
     const cardElement = createCardElement({ name: formData.title, link: formData.url });
-    placesList.addItem(cardElement);
+    placesList.prependItem(cardElement);
     newPlacePopupElement.close();
   }
 });
@@ -68,7 +68,6 @@ const resetProfileForm = () => {
 }
 
 const resetNewPlaceForm = () => {
-  newPlaceForm.reset();
   newPlaceFormValidator.clearFormValidation();
 }
 
