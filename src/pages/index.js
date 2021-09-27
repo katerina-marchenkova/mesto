@@ -5,7 +5,9 @@ import {
   cardTemplateSelector,
   profileNameElmSelector,
   profileAboutElmSelector,
-  placePreviewPopupSelector
+  placePreviewPopupSelector,
+  profilePopupSelector,
+  newPlacePopupSelector
 } from '../utils/constants.js';
 
 import { initialCardsData } from '../utils/initial-cards-data.js';
@@ -13,23 +15,17 @@ import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
-import PopupWithImage from '../components/PopupWithImage';
-
-/* popup*/
-const popupElms = document.querySelectorAll('.popup');
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
 
 /* profile */
-const profilePopupElm = document.querySelector('.popup_name_profile-edit');
 const profileElm = document.querySelector('.profile');
 const profileForm = document.forms.profile;
-const profileNameInput = profileForm.elements.name;
-const profileAboutInput = profileForm.elements.about;
 
 /* new place*/
-const newPlacePopupElm = document.querySelector('.popup_name_new-place');
 const newPlaceForm = document.forms.place;
 
-const userInfoElement = new UserInfo({nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector});
+const userInfoElement = new UserInfo({ nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector });
 const placePreviewPopupElement = new PopupWithImage(placePreviewPopupSelector);
 
 const createCardElement = function (data) {
@@ -46,41 +42,28 @@ const placesList = new Section({
   }
 }, placesListSelector);
 
-/* popup functionality */
-
-const listenKeydownClose = (evt) => {
-  if (evt.key === 'Escape') {
-    closePopup(document.querySelector('.popup_opened'));
+const newPlacePopupElement = new PopupWithForm({
+  selector: newPlacePopupSelector, handleFormSubmit: (formData) => {
+    const cardElement = createCardElement({ name: formData.title, link: formData.url });
+    placesList.addItem(cardElement);
+    newPlacePopupElement.close();
   }
-}
+});
 
-const closePopup = (popupElm) => {
-  document.removeEventListener('keydown', listenKeydownClose);
-  popupElm.classList.remove('popup_opened');
-}
-
-const showPopup = (popupElm) => {
-  popupElm.classList.add('popup_opened');
-  document.addEventListener('keydown', listenKeydownClose);
-}
-
-popupElms.forEach(elm => {
-  elm.addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('popup__btn-close') || evt.target.classList.contains('popup')) {
-      closePopup(evt.currentTarget);
-    }
-  });
-})
-
-
+const profilePopupElement = new PopupWithForm({
+  selector: profilePopupSelector, handleFormSubmit: (formData) => {
+    userInfoElement.setUserInfo(formData);
+    profilePopupElement.close();
+  }
+});
 
 /*profile */
 const profileFormValidator = new FormValidator(validationOptions, profileForm);
 const newPlaceFormValidator = new FormValidator(validationOptions, newPlaceForm);
 const resetProfileForm = () => {
   const userInfo = userInfoElement.getUserInfo();
-  profileNameInput.value = userInfo.name;
-  profileAboutInput.value = userInfo.about;
+  profileForm.elements.name.value = userInfo.name;
+  profileForm.elements.about.value = userInfo.about;
   profileFormValidator.clearFormValidation();
 }
 
@@ -91,31 +74,15 @@ const resetNewPlaceForm = () => {
 
 profileElm.querySelector('.profile__btn-edit').addEventListener('click', function (evt) {
   resetProfileForm();
-  showPopup(profilePopupElm);
+  profilePopupElement.open();
 });
-
 
 profileElm.querySelector('.profile__btn-add').addEventListener('click', function (evt) {
   resetNewPlaceForm();
-  showPopup(newPlacePopupElm);
+  newPlacePopupElement.open();
 });
-
-const handleProfileSubmitted = (evt) => {
-  evt.preventDefault();
-  userInfoElement.setUserInfo({ name: evt.target.elements.name.value, about: evt.target.elements.about.value });
-  closePopup(profilePopupElm);
-}
-
-const handleNewPlaceSubmitted = (evt) => {
-  evt.preventDefault();
-  const cardElement = createCardElement({ name: evt.target.elements.title.value, link: evt.target.elements.url.value });
-  placesList.addItem(cardElement);
-  closePopup(newPlacePopupElm);
-}
 
 placesList.renderItems();
 
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
-profileForm.addEventListener('submit', handleProfileSubmitted);
-newPlaceForm.addEventListener('submit', handleNewPlaceSubmitted);
