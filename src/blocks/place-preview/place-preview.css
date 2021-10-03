@@ -1,7 +1,0 @@
-.place-preview {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px 0;
-  grid-template-columns: fit-content(75vw);
-}
