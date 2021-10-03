@@ -10,13 +10,19 @@ import {
   newPlacePopupSelector
 } from '../utils/constants.js';
 
-import { initialCardsData } from '../utils/initial-cards-data.js';
+import Api from '../utils/Api.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-28',
+  accessToken: '009c9948-300a-40d1-aa2d-1eaf93669a9a'
+});
 
 /* profile */
 const profileElm = document.querySelector('.profile');
@@ -35,7 +41,6 @@ const createCardElement = function (data) {
 }
 
 const placesList = new Section({
-  items: initialCardsData,
   renderer: (item) => {
     const cardElement = createCardElement(item);
     placesList.addItem(cardElement);
@@ -85,3 +90,9 @@ placesList.renderItems();
 
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
+
+api.getInitialCards()
+.then((cardsData) => {
+  cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
+})
+.catch((err) => console.log(err));
