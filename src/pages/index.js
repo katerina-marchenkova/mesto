@@ -45,7 +45,9 @@ const createCardElement = function (data) {
     handleCardDelete: (cardId) => {
       api.deleteCard(cardId).then(() => true /* deleted */).catch((err) => console.log(err));
     },
-    handleCardClick: () => { placePreviewPopupElement.open(data); }
+    handleCardClick: () => { placePreviewPopupElement.open(data); },
+    handleLike: (cardId) => { api.addLike(cardId).then(() => true ).catch((err) => console.log(err)); },
+    handleDislike: (cardId) => { api.removeLike(cardId).then(() => true ).catch((err) => console.log(err)); }
   }, cardTemplateSelector);
 
   const cardElement = card.generateCard();

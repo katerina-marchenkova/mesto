@@ -3,7 +3,9 @@ export class Card {
     data,
     checkIsCurrentUserIdFunc,
     handleCardClick,
-    handleCardDelete
+    handleCardDelete,
+    handleLike,
+    handleDislike
   },
     cardSelector) {
     this._id = data._id;
@@ -13,13 +15,15 @@ export class Card {
     const likes = (data.likes || []);
     this._isLiked = likes.reduce(function (previousValue, item) {
       return previousValue || checkIsCurrentUserIdFunc(item._id);
-    },
+      },
       false);
 
     this._likesCount = likes.length;
     this._canDelete = checkIsCurrentUserIdFunc(this._ownerId);
     this._handleCardClick = handleCardClick || {};
-    this._handleCardDelete = handleCardDelete || {}
+    this._handleCardDelete = handleCardDelete || {};
+    this._handleLike = handleLike || {};
+    this._handleDislike = handleDislike || {}
     this._cardSelector = cardSelector;
   }
 
@@ -46,6 +50,16 @@ export class Card {
   }
 
   _handleLikeClick(evt) {
+    if (!this._isLiked) {
+      if (typeof this._handleLike === 'function') {
+        this._handleLike(this._id);
+      }
+    } else {
+      if (typeof this._handleDislike === 'function') {
+        this._handleDislike(this._id);
+      }
+    }
+
     evt.target.classList.toggle('card__like_active');
   }
 
