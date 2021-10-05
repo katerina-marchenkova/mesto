@@ -49,9 +49,15 @@ const placesList = new Section({
 
 const newPlacePopupElement = new PopupWithForm({
   selector: newPlacePopupSelector, handleFormSubmit: (formData) => {
-    const cardElement = createCardElement({ name: formData.title, link: formData.url });
-    placesList.prependItem(cardElement);
-    newPlacePopupElement.close();
+    api.addCard({ name: formData.title, link: formData.url })
+      .then((cardData) => {
+        const cardElement = createCardElement(cardData);
+        placesList.prependItem(cardElement);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        newPlacePopupElement.close();
+      });
   }
 });
 
@@ -92,7 +98,7 @@ profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
 
 api.getInitialCards()
-.then((cardsData) => {
-  cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
-})
-.catch((err) => console.log(err));
+  .then((cardsData) => {
+    cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
+  })
+  .catch((err) => console.log(err));

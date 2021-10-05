@@ -1,5 +1,7 @@
 export class Card {
   constructor({ data, handleCardClick }, cardSelector) {
+    this._id = data._id;
+    this._ownerId = data.owner?._id || '';
     this._name = data.name;
     this._link = data.link;
     this._isLiked = data.liked || false;
