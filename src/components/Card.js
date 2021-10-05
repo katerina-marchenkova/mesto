@@ -12,13 +12,9 @@ export class Card {
     this._ownerId = data.owner?._id || '';
     this._name = data.name;
     this._link = data.link;
-    const likes = (data.likes || []);
-    this._isLiked = likes.reduce(function (previousValue, item) {
-      return previousValue || checkIsCurrentUserIdFunc(item._id);
-      },
-      false);
+    this._checkIsCurrentUserIdFunc = checkIsCurrentUserIdFunc || (() => false);
+    this._likes = data.likes || [];
 
-    this._likesCount = likes.length;
     this._canDelete = checkIsCurrentUserIdFunc(this._ownerId);
     this._handleCardClick = handleCardClick || {};
     this._handleCardDelete = handleCardDelete || {};
@@ -83,17 +79,35 @@ export class Card {
     this._likeButton = this._element.querySelector('.card__like');
     this._likesNumberElement = this._element.querySelector('.card__likes-number');
     this._deleteButton = this._element.querySelector('.card__btn-delete_place_card');
+    this.recalculateLikes(this._likes);
     this._setEventListeners();
 
     this._imgElement.setAttribute('src', this._link);
     this._imgElement.setAttribute('alt', this._name);
     this._element.querySelector('.card__title').textContent = this._name;
-    this._likesNumberElement.textContent = this._likesCount;
 
     if (!this._canDelete) {
       this._deleteButton.remove();
     }
 
     return this._element;
+  }
+
+  recalculateLikes(likes) {
+    this._likes = likes;
+    this._isLiked = likes.reduce((previousValue, item) => {
+      return previousValue || this._checkIsCurrentUserIdFunc(item._id);
+      },
+      false);
+
+    this._likesCount = likes.length;
+
+    if (this._isLiked) {
+      this._likeButton.classList.add('card__like_active');
+    } else {
+      this._likeButton.classList.remove('card__like_active');
+    }
+
+    this._likesNumberElement.textContent = this._likesCount;
   }
 }

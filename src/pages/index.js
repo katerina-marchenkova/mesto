@@ -46,8 +46,8 @@ const createCardElement = function (data) {
       api.deleteCard(cardId).then(() => true /* deleted */).catch((err) => console.log(err));
     },
     handleCardClick: () => { placePreviewPopupElement.open(data); },
-    handleLike: (cardId) => { api.addLike(cardId).then(() => true ).catch((err) => console.log(err)); },
-    handleDislike: (cardId) => { api.removeLike(cardId).then(() => true ).catch((err) => console.log(err)); }
+    handleLike: (cardId) => { api.addLike(cardId).then((data) => card.recalculateLikes(data.likes)).catch((err) => console.log(err)); },
+    handleDislike: (cardId) => { api.removeLike(cardId).then((data) => card.recalculateLikes(data.likes)).catch((err) => console.log(err)); }
   }, cardTemplateSelector);
 
   const cardElement = card.generateCard();
