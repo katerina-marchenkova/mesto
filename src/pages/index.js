@@ -62,9 +62,16 @@ const newPlacePopupElement = new PopupWithForm({
 });
 
 const profilePopupElement = new PopupWithForm({
-  selector: profilePopupSelector, handleFormSubmit: (formData) => {
-    userInfoElement.setUserInfo(formData);
-    profilePopupElement.close();
+  selector: profilePopupSelector,
+  handleFormSubmit: (formData) => {
+    api.updateProfile(formData)
+      .then((profileData) => {
+        userInfoElement.setUserInfo(profileData);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        profilePopupElement.close();
+      });
   }
 });
 
