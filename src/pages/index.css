@@ -20,8 +20,10 @@
 @import url(../blocks/card/__btn-delete/card__btn-delete.css);
 @import url(../blocks/card/__btn-delete/_place/card__btn-delete_place_card.css);
 @import url(../blocks/card/__title/card__title.css);
+@import url(../blocks/card/__likes-container/card__likes-container.css);
 @import url(../blocks/card/__like/card__like.css);
 @import url(../blocks/card/__like/_active/card__like_active.css);
+@import url(../blocks/card/__likes-number/card__likes-number.css);
 /* header */
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);

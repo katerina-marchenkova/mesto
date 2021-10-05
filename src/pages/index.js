@@ -34,8 +34,20 @@ const newPlaceForm = document.forms.place;
 const userInfoElement = new UserInfo({ nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector });
 const placePreviewPopupElement = new PopupWithImage(placePreviewPopupSelector);
 
+let checkIsCurrentUserId = function (userId) {
+  return false;
+}
+
 const createCardElement = function (data) {
-  const card = new Card({ data: data, handleCardClick: () => { placePreviewPopupElement.open(data); } }, cardTemplateSelector);
+  const card = new Card({
+    data: data,
+    checkIsCurrentUserIdFunc: checkIsCurrentUserId,
+    handleCardDelete: (cardId) => {
+      api.deleteCard(cardId).then(() => true /* deleted */).catch((err) => console.log(err));
+    },
+    handleCardClick: () => { placePreviewPopupElement.open(data); }
+  }, cardTemplateSelector);
+
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -106,12 +118,15 @@ newPlaceFormValidator.enableValidation();
 
 api.getProfile()
   .then((profileData) => {
-    userInfoElement.setUserInfo(profileData);
-  })
-  .catch((err) => console.log(err));
+    checkIsCurrentUserId = function (userId) {
+      return userId === profileData._id;
+    };
 
-api.getInitialCards()
-  .then((cardsData) => {
-    cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
+    userInfoElement.setUserInfo(profileData);
+    api.getInitialCards()
+      .then((cardsData) => {
+        cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
+      })
+      .catch((err) => console.log(err));
   })
   .catch((err) => console.log(err));
