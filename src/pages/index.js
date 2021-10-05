@@ -97,6 +97,12 @@ placesList.renderItems();
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
 
+api.getProfile()
+  .then((profileData) => {
+    userInfoElement.setUserInfo(profileData);
+  })
+  .catch((err) => console.log(err));
+
 api.getInitialCards()
   .then((cardsData) => {
     cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
