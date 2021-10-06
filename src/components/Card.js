@@ -62,9 +62,9 @@ export class Card {
   _handleRemoveClick() {
     if (typeof this._handleCardDelete === 'function') {
       this._handleCardDelete(this._id);
+    } else {
+      this._element.remove();
     }
-
-    this._element.remove();
   }
 
   _handlePreviewClick() {
@@ -91,6 +91,10 @@ export class Card {
     }
 
     return this._element;
+  }
+
+  removeCard() {
+    this._element.remove();
   }
 
   recalculateLikes(likes) {

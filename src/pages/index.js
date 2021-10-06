@@ -7,7 +7,9 @@ import {
   profileAboutElmSelector,
   placePreviewPopupSelector,
   profilePopupSelector,
-  newPlacePopupSelector
+  newPlacePopupSelector,
+  confirmPopupSelector,
+  confirmItemIdElementSelector
 } from '../utils/constants.js';
 
 import Api from '../utils/Api.js';
@@ -17,6 +19,7 @@ import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 
 
 const api = new Api({
@@ -38,12 +41,30 @@ let checkIsCurrentUserId = function (userId) {
   return false;
 }
 
+const confirmPopupElement = new PopupWithConfirm({
+  selector: confirmPopupSelector,
+  confirmItemIdElementSelector: confirmItemIdElementSelector,
+  handleFormSubmit: (formData) => {
+    api.deleteCard(formData.itemId)
+      .then(() => true /* deleted */)
+      .then((success) => {
+        if (success) {
+          confirmPopupElement.complete();
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        confirmPopupElement.close();
+      });
+  }
+});
+
 const createCardElement = function (data) {
   const card = new Card({
     data: data,
     checkIsCurrentUserIdFunc: checkIsCurrentUserId,
     handleCardDelete: (cardId) => {
-      api.deleteCard(cardId).then(() => true /* deleted */).catch((err) => console.log(err));
+      confirmPopupElement.open(cardId, card.removeCard.bind(card));
     },
     handleCardClick: () => { placePreviewPopupElement.open(data); },
     handleLike: (cardId) => { api.addLike(cardId).then((data) => card.recalculateLikes(data.likes)).catch((err) => console.log(err)); },

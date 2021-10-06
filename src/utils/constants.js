@@ -17,3 +17,6 @@ export const profileAboutElmSelector = '.profile__description';
 export const placePreviewPopupSelector = '.popup_name_place-preview';
 export const profilePopupSelector = '.popup_name_profile-edit';
 export const newPlacePopupSelector = '.popup_name_new-place';
+export const confirmPopupSelector = '.popup_name_confirm';
+
+export const confirmItemIdElementSelector = '.popup__hidden-id-input';
