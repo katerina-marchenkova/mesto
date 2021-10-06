@@ -4,5 +4,6 @@
   object-fit: contain;
   border-radius: 50%;
   overflow: hidden;
-
+  grid-column: 1;
+  grid-row: 1;
 }

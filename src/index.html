@@ -17,7 +17,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/content/avatar_cousteau.jpg')%>" class="profile__avatar" alt="Фото" />
+        <div class="profile__avatar-container">
+          <img src="<%=require('./images/content/avatar_cousteau.jpg')%>" class="profile__avatar" alt="Фото" />
+          <button type="button" class="profile__btn-edit-avatar"></button>
+        </div>
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button type="button" class="profile__btn-edit"></button>
@@ -72,13 +75,13 @@
       </figure>
     </div>
   </div>
-  <div class="popup popup_name_avatar-edit">
+  <div class="popup popup_name_avatar-change">
     <div class="popup__container">
       <button type="button" class="popup__btn-close"></button>
-      <form name="place" class="popup__form" novalidate>
+      <form name="avatar" class="popup__form" novalidate>
         <h2 class="popup__title">Обновить аватар</h2>
-        <input name="avatar" id="avatar-input" type="url" class="popup__input" placeholder="Ссылка на аватар" required>
-        <span class="popup__error avatar-input-error"></span>
+        <input name="avatarUrl" id="avatar-url-input" type="url" class="popup__input" placeholder="Ссылка на аватар" required>
+        <span class="popup__error avatar-url-input-error"></span>
         <button type="submit" class="popup__button">Сохранить</button>
       </form>
     </div>
@@ -86,7 +89,7 @@
   <div class="popup popup_name_confirm">
     <div class="popup__container">
       <button type="button" class="popup__btn-close"></button>
-      <form name="place" class="popup__form" novalidate>
+      <form name="confirm" class="popup__form" novalidate>
         <h2 class="popup__title">Вы уверены?</h2>
         <input name="itemId" id="item-id-input" type="hidden" class="popup__input popup__hidden-id-input">
         <button type="submit" class="popup__button">Да</button>

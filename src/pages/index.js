@@ -9,6 +9,8 @@ import {
   profilePopupSelector,
   newPlacePopupSelector,
   confirmPopupSelector,
+  changeAvatarPopupSelector,
+  profileAvatarElmSelector,
   confirmItemIdElementSelector
 } from '../utils/constants.js';
 
@@ -30,11 +32,10 @@ const api = new Api({
 /* profile */
 const profileElm = document.querySelector('.profile');
 const profileForm = document.forms.profile;
-
-/* new place*/
 const newPlaceForm = document.forms.place;
+const changeAvatarForm = document.forms.avatar;
 
-const userInfoElement = new UserInfo({ nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector });
+const userInfoElement = new UserInfo({ nameElmSelector: profileNameElmSelector, aboutElmSelector: profileAboutElmSelector, avatarElmSelector: profileAvatarElmSelector });
 const placePreviewPopupElement = new PopupWithImage(placePreviewPopupSelector);
 
 let checkIsCurrentUserId = function (userId) {
@@ -110,9 +111,24 @@ const profilePopupElement = new PopupWithForm({
   }
 });
 
+const changeAvatarPopupElement = new PopupWithForm({
+  selector: changeAvatarPopupSelector,
+  handleFormSubmit: (formData) => {
+    api.updateAvatar(formData)
+      .then((profileData) => {
+        userInfoElement.setUserInfo(profileData);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        changeAvatarPopupElement.close();
+      });
+  }
+});
+
 /*profile */
 const profileFormValidator = new FormValidator(validationOptions, profileForm);
 const newPlaceFormValidator = new FormValidator(validationOptions, newPlaceForm);
+const changeAvatarFormValidator = new FormValidator(validationOptions, changeAvatarForm);
 const resetProfileForm = () => {
   const userInfo = userInfoElement.getUserInfo();
   profileForm.elements.name.value = userInfo.name;
@@ -122,6 +138,10 @@ const resetProfileForm = () => {
 
 const resetNewPlaceForm = () => {
   newPlaceFormValidator.clearFormValidation();
+}
+
+const resetChangeAvatarForm = () => {
+  changeAvatarFormValidator.clearFormValidation();
 }
 
 profileElm.querySelector('.profile__btn-edit').addEventListener('click', function (evt) {
@@ -134,10 +154,16 @@ profileElm.querySelector('.profile__btn-add').addEventListener('click', function
   newPlacePopupElement.open();
 });
 
+profileElm.querySelector('.profile__btn-edit-avatar').addEventListener('click', function (evt) {
+  resetChangeAvatarForm();
+  changeAvatarPopupElement.open();
+});
+
 placesList.renderItems();
 
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
+changeAvatarFormValidator.enableValidation();
 
 api.getProfile()
   .then((profileData) => {
