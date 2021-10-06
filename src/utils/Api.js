@@ -22,8 +22,8 @@ export default class Api {
       });
   }
 
-   // todo: move to separate user api
-   updateProfile({name, about}) {
+  // todo: move to separate user api
+  updateProfile({ name, about }) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
@@ -41,7 +41,7 @@ export default class Api {
       });
   }
 
-  updateAvatar({avatarUrl}) {
+  updateAvatar({ avatarUrl }) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this.headers,
@@ -72,8 +72,8 @@ export default class Api {
       });
   }
 
-   // todo: move to separate user api
-   addCard({name, link}) {
+  // todo: move to separate user api
+  addCard({ name, link }) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: this.headers,
