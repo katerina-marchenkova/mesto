@@ -9,8 +9,9 @@ export default class Section {
     this._container.innerHTML = '';
   }
 
-  renderItems() {
+  renderItems(items) {
     this.clear();
+    this._items = items || this._items;
 
     this._items.forEach(item => {
       this._renderer(item);

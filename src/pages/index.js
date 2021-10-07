@@ -89,11 +89,9 @@ const newPlacePopupElement = new PopupWithForm({
       .then((cardData) => {
         const cardElement = createCardElement(cardData);
         placesList.prependItem(cardElement);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
         newPlacePopupElement.close();
-      });
+      })
+      .catch((err) => console.log(err));
   }
 });
 
@@ -103,11 +101,9 @@ const profilePopupElement = new PopupWithForm({
     api.updateProfile(formData)
       .then((profileData) => {
         userInfoElement.setUserInfo(profileData);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
         profilePopupElement.close();
-      });
+      })
+      .catch((err) => console.log(err));
   }
 });
 
@@ -117,11 +113,9 @@ const changeAvatarPopupElement = new PopupWithForm({
     api.updateAvatar(formData)
       .then((profileData) => {
         userInfoElement.setUserInfo(profileData);
-      })
-      .catch((err) => console.log(err))
-      .finally(() => {
         changeAvatarPopupElement.close();
-      });
+      })
+      .catch((err) => console.log(err));
   }
 });
 
@@ -174,7 +168,7 @@ api.getProfile()
     userInfoElement.setUserInfo(profileData);
     api.getInitialCards()
       .then((cardsData) => {
-        cardsData.forEach((card) => placesList.addItem(createCardElement(card)));
+        placesList.renderItems(cardsData);
       })
       .catch((err) => console.log(err));
   })
