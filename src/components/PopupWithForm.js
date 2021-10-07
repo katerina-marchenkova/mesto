@@ -37,7 +37,7 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._submitButton.textContent = this._submitBtnDefaultText;
-    this._submitButton.setAttribute('disabled', false);
+    this._submitButton.removeAttribute('disabled');
     this._formElm.reset();
   }
 }

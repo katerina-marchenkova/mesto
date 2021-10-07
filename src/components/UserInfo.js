@@ -6,7 +6,6 @@ export default class UserInfo {
     this._nameElement = document.querySelector(this._nameElmSelector);
     this._aboutElement = document.querySelector(this._aboutElmSelector);
     this._avatarElement = document.querySelector(this._avatarElmSelector);
-    console.log(this._avatarElement);
   }
 
   getUserInfo() {

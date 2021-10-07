@@ -51,12 +51,10 @@ const confirmPopupElement = new PopupWithConfirm({
       .then((success) => {
         if (success) {
           confirmPopupElement.complete();
+          confirmPopupElement.close();
         }
       })
-      .catch((err) => console.log(err))
-      .finally(() => {
-        confirmPopupElement.close();
-      });
+      .catch((err) => console.log(err));
   }
 });
 
@@ -152,8 +150,6 @@ profileElm.querySelector('.profile__btn-edit-avatar').addEventListener('click', 
   resetChangeAvatarForm();
   changeAvatarPopupElement.open();
 });
-
-placesList.renderItems();
 
 profileFormValidator.enableValidation();
 newPlaceFormValidator.enableValidation();
